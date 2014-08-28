@@ -1,6 +1,6 @@
 ZLMailComposerViewController
 ============================
-An Customized Email Composer for iOS.
+A Customized Email Composer for iOS.
 
 
 ![ZLMailComposerViewController](https://raw.githubusercontent.com/zhanleewo/ZLMailComposerViewController/master/screen-01.PNG)

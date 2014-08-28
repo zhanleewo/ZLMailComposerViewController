@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+            <title></title>
+            <style>
+                img {
+                    display: block;
+                    width: 100%;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+                /* placeholder for contenteditable dom */
+                [contenteditable=true]:empty:before{
+                    content: attr(placeholder);
+                    color: #a6a6a6;
+                }
+
+                .tag-textfield {
+                    margin:0;
+                    padding:0;
+                    height:100%;
+                    border:1px solid #000000;
+                    clear:both;
+                    content:"";
+                    display:table;
+                    list-style:none;
+                }
+            
+                .recipients-tag-textfield-li {
+                    float:left;
+                    margin:2px 2px 2px 2px;
+                    list-style:none;
+                    height:24px;
+                    border-radius:12px;
+                    background-color:#efefef;
+                    text-align:center;
+                    line-height:24px;
+                    font-size:16px;
+                }
+                .recipients-tag-textfield-li-icon {
+                    float:left;
+                    margin:2px 2px 2px 2px;
+                    padding:0;
+                    width:20px;
+                    height:20px;
+                    line-height:20px;
+                    border:none;/*0px solid #379082*/
+                    border-radius:10px;
+                    background-color:#ff493f;
+                    color:#ffffff;
+                    font-size:16px;
+                    text-transform:uppercase;
+                }
+                .recipients-tag-textfield-li-title {
+                    float:left;
+                    margin:2px 0 2px 2px;
+                    height:20px;
+                    overflow:hidden;
+                    line-height:20px;
+                    max-width:200px;
+                    color:#000000;
+                    font-size:12px;
+                }
+                .recipients-tag-textfield-li-button-container {
+                    float:right;
+                    margin:0 0 0 0;
+                    width:24px;
+                    height:24px;
+                }
+                .recipients-tag-textfield-li-button {
+                    margin:4px 4px 4px 4px;
+                    width:16px;
+                    height:16px;
+                    background:none;
+                    border:none;
+                }
+            
+            
+            .cc-tag-textfield-li {
+                float:left;
+                margin:2px 2px 2px 2px;
+                list-style:none;
+                height:24px;
+                border-radius:12px;
+                background-color:#efefef;
+                text-align:center;
+                line-height:24px;
+                font-size:16px;
+            }
+            .cc-tag-textfield-li-icon {
+                float:left;
+                margin:2px 2px 2px 2px;
+                padding:0;
+                width:20px;
+                height:20px;
+                line-height:20px;
+                border:none;/*0px solid #379082*/
+                border-radius:10px;
+                background-color:#f9b511;
+                color:#ffffff;
+                font-size:16px;
+                text-transform:uppercase;
+            }
+            .cc-tag-textfield-li-title {
+                float:left;
+                margin:2px 0 2px 2px;
+                height:20px;
+                overflow:hidden;
+                line-height:20px;
+                max-width:200px;
+                color:#000000;
+                font-size:12px;
+            }
+            .cc-tag-textfield-li-button-container {
+                float:right;
+                margin:0 0 0 0;
+                width:24px;
+                height:24px;
+            }
+            .cc-tag-textfield-li-button {
+                margin:4px 4px 4px 4px;
+                width:16px;
+                height:16px;
+                background:none;
+                border:none;
+            }
+            
+            
+            .bcc-tag-textfield-li {
+                float:left;
+                margin:2px 2px 2px 2px;
+                list-style:none;
+                height:24px;
+                border-radius:12px;
+                background-color:#efefef;
+                text-align:center;
+                line-height:24px;
+                font-size:16px;
+            }
+            .bcc-tag-textfield-li-icon {
+                float:left;
+                margin:2px 2px 2px 2px;
+                padding:0;
+                width:20px;
+                height:20px;
+                line-height:20px;
+                border:none;/*0px solid #379082*/
+                border-radius:10px;
+                background-color:#ffdc00;
+                color:#ffffff;
+                font-size:16px;
+                text-transform:uppercase;
+            }
+            .bcc-tag-textfield-li-title {
+                float:left;
+                margin:2px 0 2px 2px;
+                height:20px;
+                overflow:hidden;
+                line-height:20px;
+                max-width:200px;
+                color:#000000;
+                font-size:12px;
+            }
+            .bcc-tag-textfield-li-button-container {
+                float:right;
+                margin:0 0 0 0;
+                width:24px;
+                height:24px;
+            }
+            .bcc-tag-textfield-li-button {
+                margin:4px 4px 4px 4px;
+                width:16px;
+                height:16px;
+                background:none;
+                border:none;
+            }
+            
+                .tag-textfield-autocomplete {
+                    /*position:absolute;
+                    z-index:100000,*/
+                    float:left;
+                    margin:0;
+                    padding:0;
+                    width:100%;
+                    height:auto;
+                    list-style:none;
+                    /*border:1px solid #cccccc;*/
+                    clear:both;
+                    background-color:#fefefe;
+                    font-size:12px;
+                    min-height:120px;
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+                }
+            
+                .tag-textfield-autocomplete li {
+                    height:34px;
+                    line-height:34px;
+                    border-bottom:1px solid #ddd;
+                    -webkit-tap-highlight-color: rgba(240,240,240,1);
+                }
+            
+                input {
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+                    -webkit-border-radius:0;
+                }
+                .subject-textfield {
+                    margin:0;
+                    height:auto;
+                    min-height:32px;
+                    clear:both;
+                    border-bottom:1px solid #ddd;
+                }
+                .subject-input {
+                    background:none;
+                    border:none;
+                    width:100%;
+                    height:32px;
+                }
+                .content-editor {
+                    padding-top:10px;
+                    min-height:100px;
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+                }
+                </style>
+        <script type="text/javascript">
+
+            Array.prototype.remove = function(index) {
+                this.splice(index, 1);
+            };
+
+            function UUTagTextField (config) {
+                var self = this;
+
+                this.tags = config.tags;
+                this.width = config.width;
+                this.minHeight = config.minHeight;
+                this.tagSelectedBackgroundColor = config.tagSelectedBackgroundColor;
+                this.title = config.title;
+                this.delegate = config.delegate;
+                this.marginLeft = 0;
+                this.marginRight = 0;
+                this.marginTop = 0;
+                this.marginBottom = 0;
+                this.textFieldElement = null;
+                this.inputElement =  null;
+                this.tagStyles = config.tagStyles;
+                this.autoComplete = {
+                    frameDiv:null,
+                    element:null,
+                    querey:null,
+                    parent:null,
+                    className:null,
+                    isInited : false,
+                    filterdDatas : null,
+                    init : function() {
+                        self.autoComplete.frameDiv = document.createElement("DIV");
+                        var titleDiv = document.createElement("DIV");
+                        
+                        self.autoComplete.frameDiv.style.position = "absolute";
+                        self.autoComplete.frameDiv.style.zIndex = 100000;
+                        self.autoComplete.frameDiv.style.margin = "0";
+                        self.autoComplete.frameDiv.style.padding = "0";
+                        self.autoComplete.frameDiv.style.clear = "both";
+                        self.autoComplete.frameDiv.style.width = self.autoComplete.parent.style.width;
+                        self.autoComplete.frameDiv.style.height = "auto";
+                        self.autoComplete.frameDiv.style.border = "1px solid #cccccc";
+                        self.autoComplete.frameDiv.style.backgroundColor = "#ffffff";
+                        
+                        titleDiv.style.float = "left";
+                        titleDiv.style.margin = "0";
+                        titleDiv.style.padding = "0";
+                        titleDiv.style.clear = "both";
+                        titleDiv.style.width = self.autoComplete.parent.style.width;
+                        titleDiv.style.height = "22px";
+                        titleDiv.style.lineHight = "22px";
+                        titleDiv.style.fontSize = "12px";
+                        titleDiv.style.borderBottom = "1px solid #cccccc";
+                        titleDiv.style.backgroundColor = "#efefef";
+                        
+                        var strTitleWidth = self.autoComplete.parent.style.width;
+                        
+                        strTitleWidth = strTitleWidth.substring(0, strTitleWidth.length - 2);
+                        var titleWidth = parseInt(strTitleWidth) - 22;
+                        
+                        var titleTextDiv = document.createElement("DIV");
+                        titleTextDiv.style.float = "left";
+                        titleTextDiv.style.margin = "0";
+                        titleTextDiv.style.padding = "0";
+                        titleTextDiv.style.height = "22px";
+                        titleTextDiv.style.width = titleWidth + "px";
+                        titleTextDiv.style.lineHeight = "22px";
+                        titleTextDiv.innerHTML = "请选择相关的联系人";
+                        var closeButtonDiv = document.createElement("DIV");
+                        closeButtonDiv.style.float = "right";
+                        closeButtonDiv.style.margin = "3px 2px 3px 2px";
+                        closeButtonDiv.style.padding = "0";
+                        closeButtonDiv.style.height = "16px";
+                        closeButtonDiv.style.width = "16px";
+                        
+                        
+                        if (window.devicePixelRatio < 2) {
+                            closeButtonDiv.style.background = "url(btn-tag-delete.png) no-repeat top left";
+                        } else {
+                            closeButtonDiv.style.background = "url(btn-tag-delete@2x.png) no-repeat top left";
+                        }
+                        closeButtonDiv.style.backgroundSize = "16px 16px";
+                        closeButtonDiv.onclick = self.autoComplete.closeButtonAction;
+                        
+                        titleDiv.appendChild(titleTextDiv);
+                        titleDiv.appendChild(closeButtonDiv);
+                        
+                        self.autoComplete.frameDiv.appendChild(titleDiv);
+                        self.autoComplete.frameDiv.appendChild(self.autoComplete.element)
+                        
+                        var rect = self.getRectByElememt(self.autoComplete.parent);
+                        self.autoComplete.element.className = self.autoComplete.className;
+                        self.autoComplete.element.style.left = rect.offset.x;
+                        self.autoComplete.element.style.top = rect.offset.y + rect.size.height;
+                        self.autoComplete.element.style.width = self.autoComplete.parent.style.width;
+                        self.autoComplete.parent.appendChild(self.autoComplete.frameDiv);
+                        self.autoComplete.isInited = true;
+                    },
+                    closeButtonAction : function(e) {
+                        self.autoComplete.destory();
+                    },
+                    destory : function() {
+                        if(self.autoComplete.isInited) {
+                            if(self.autoComplete.parent && self.autoComplete.frameDiv) {
+                                self.autoComplete.parent.removeChild(self.autoComplete.frameDiv);
+                                self.autoComplete.element = null;
+                                self.autoComplete.parent = null;
+                                self.autoComplete.frameDiv = null;
+                            }
+                            self.autoComplete.querey = null;
+                            self.autoComplete.isInited = false;
+                        }
+                    },
+                    datas : function() {
+                        return [{
+                                    displayName : "朱茵",
+                                    mailbox : "zhu.yin@163.com",
+                                }, {
+                                    displayName : "张学友",
+                                    mailbox : "jack.chang@163.com",
+                                }, {
+                                    displayName : "刘德华",
+                                    mailbox : "andy.liu@163.com",
+                                }, {
+                                    displayName : "吴宗宪",
+                                    mailbox : "zongxian.wu@163.com",
+                                }, {
+                                    displayName : "James",
+                                    mailbox : "james@163.com",
+                                }, {
+                                    displayName : "郭富城",
+                                    mailbox : "fucheng.guo@163.com",
+                                }, {
+                                    displayName : "黎明",
+                                    mailbox : "ming.li@163.com",
+                                }, {
+                                    displayName : "去哪儿",
+                                    mailbox : "qunaer@163.com",
+                                }];
+                    },
+                    doQuerey:function(querey) {
+                        
+                        //                            var el = autoComplete.element;
+                        //                            while(el.firstChild) {
+                        //                                el.removeChild(myNode.firstChild);
+                        //                            }
+                        self.autoComplete.element.innerHTML="";
+                        self.autoComplete.querey = querey;
+                        var arr = self.autoComplete.datas();
+                        if(arr && arr.length > 0) {
+                            self.autoComplete.filterdDatas = arr.filter(function(e) {
+                                                           querey = querey.toLowerCase();
+                                                           if(e.displayName
+                                                              && e.displayName.length > 0
+                                                              && e.displayName.toLowerCase().indexOf(querey) != -1) {
+                                                                return true;
+                                                           }
+                                                           if(e.mailbox
+                                                              && e.mailbox.length > 0
+                                                              && e.mailbox.toLowerCase().indexOf(querey) != -1) {
+                                                                return true;
+                                                           }
+                                                           return false;
+                                                          });
+                            var n = self.autoComplete.filterdDatas.length;
+                            for(var i=0; i<n; i++) {
+                                var autoCompleteItemElement = document.createElement("LI");
+                                autoCompleteItemElement.setAttribute("dataIndex", i);
+                                var e = self.autoComplete.filterdDatas[i];
+                                if(e.mailbox && e.mailbox.length > 0) {
+                                    autoCompleteItemElement.innerHTML = "\"" + e.displayName + "\" &lt;" + e.mailbox + "&gt;";
+                                } else {
+                                    autoCompleteItemElement.innerHTML = e.mailbox;
+                                }
+                                autoCompleteItemElement.onclick = function(e) {
+                                    var index = parseInt(this.getAttribute("dataIndex"));
+                                    var e = self.autoComplete.filterdDatas[index];
+                                    self.autoComplete.onSelect(index, e.displayName, e.mailbox);
+                                };
+                                self.autoComplete.element.appendChild(autoCompleteItemElement);
+                            }
+                        }
+                    },
+                    onSelect:function(idx, text, value) {
+                        self.desselectLastTagIfNeed();
+                        self.inputElement.value = "\"" + text + "\" <" + value + ">";
+                        self.addTag();
+                        self.autoComplete.destory();
+                    },
+                };
+                
+                this.bindingEvent = function() {
+                    self.inputElement.onkeydown = self.onKeydown;
+                    self.inputElement.onkeyup = this.onKeyup;
+                    self.inputElement.onblur = self.onBlur;
+                    self.inputElement.onfocus = self.onFocus;
+                };
+
+                this.applyTo = function(eltId, inputId) {
+                    //
+                    self.textFieldElement = document.getElementById(eltId);
+                    self.inputElement = document.getElementById(inputId);
+                    //
+                    self.className = "";
+                    self.textFieldElement.style.width = self.width + "px";
+                    self.textFieldElement.style.height = "auto";
+                    self.textFieldElement.style.minHeight = self.minHeight + "px";
+                    self.textFieldElement.style.clear = "both";
+                    self.textFieldElement.style.marginLeft = self.marginLeft + "px";
+                    self.textFieldElement.style.marginRight = self.marginRight + "px";
+                    self.textFieldElement.style.marginTop = self.marginTop + "px";
+                    self.textFieldElement.style.marginBottom = self.marginBottom + "px";
+                    self.textFieldElement.style.border = "none";
+                    self.textFieldElement.style.borderBottom = "1px solid #ddd";
+                    //
+                    self.inputElement.style.width = self.width + "px";
+                    self.inputElement.style.height = (self.minHeight - 2) + "px";
+                    self.inputElement.style.height = self.height + "px";
+                    self.inputElement.style.border = "none";
+                    self.inputElement.style.background = "none";
+                    self.inputElement.placeholder = self.title;
+                    self.inputElement.fontSize = "12px";
+
+                    //
+                    self.bindingEvent();
+                };
+
+                this.getRectByElememt = function (el) {
+                    var lsize = {width:el.offsetWidth, height: el.offsetHeight};
+                    for (var lx=0, ly=0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+                    return {
+                        offset : {x: lx, y: ly},
+                        size : lsize
+                    };
+                };
+
+                this.getRectByElememtId = function (eltId) {
+                    var el = document.getElementById(eltId);
+                    return self.getRectByElememt(el);
+                };
+
+                this.createTag = function (tagTitle) {
+
+                    var tagDiv = document.createElement("LI");
+                    var tagImgDiv = document.createElement("DIV");
+                    var tagTitleDiv = document.createElement("DIV");
+                    var tagButtonDiv = document.createElement("DIV");
+                    var tagButtonInput = document.createElement("INPUT");
+                    //
+                    tagButtonDiv.appendChild(tagButtonInput);
+                    tagDiv.appendChild(tagImgDiv);
+                    tagDiv.appendChild(tagTitleDiv);
+                    tagDiv.appendChild(tagButtonDiv);
+                    
+                    //tagStyles.tagClassName;
+                    //tagStyles.iconClassName
+                    //tagStyles.titleClassName
+                    //tagStyles.buttonClassName
+                    //tagStyles.inputClassName
+                    
+                    //
+                    tagDiv.className = self.tagStyles.tagClassName; //"tag-textfield-li";
+                    //
+                    tagImgDiv.className = self.tagStyles.iconClassName;//"tag-textfield-li-icon";
+                    //
+                    tagTitleDiv.className = self.tagStyles.titleClassName;//"tag-textfield-li-title";
+                    //
+                    tagButtonDiv.className = self.tagStyles.buttonClassName;//"tag-textfield-li-button-container";
+                    //
+                    tagButtonInput.className = self.tagStyles.inputClassName;//"tag-textfield-li-button";
+                    tagButtonInput.type = "button";
+                    tagButtonInput.onclick = self.removeTagAction;
+                    if (window.devicePixelRatio < 2) {
+                        tagButtonInput.style.background = "url(btn-tag-delete.png) no-repeat top left";
+                    } else {
+                        tagButtonInput.style.background = "url(btn-tag-delete@2x.png) no-repeat top left";
+                    }
+                    tagButtonInput.style.backgroundSize = "16px 16px";
+
+                    //
+                    tagDiv.setAttribute("selected", "false");
+                    if(tagTitle && tagTitle.length > 0) {
+                        tagImgDiv.innerText = tagTitle.substring(0, 1);
+                    }
+                    tagTitleDiv.innerText = tagTitle;
+                    return tagDiv;
+                };
+
+                this.addTag = function() {
+
+                    if(!self.delegate.shouldAddTag(self, self.inputElement.value)) {
+                        return;
+                    }
+
+                    var tagElt = null;
+                    var tagObj = self.delegate.tagObjectWithText(self, self.inputElement.value);
+                    if(tagObj.displayName.length > 0) {
+                        tagElt = self.createTag(tagObj.displayName);
+                    } else {
+                        tagElt = self.createTag(tagObj.mailbox);
+                    }
+
+                    self.textFieldElement.insertBefore(tagElt, self.inputElement.parentNode);
+                    self.tags.push(tagObj);
+
+                    self.delegate.didAddTag(self, tagObj);
+
+                    self.inputElement.value = "";
+                    self.changeInputElementSize(tagElt);
+
+                    if(self.tags  && self.tags.length > 0 && self.inputElement.placeholder.length > 0) {
+                        self.inputElement.placeholder = "";
+                    }
+                };
+
+                this.changeInputElementSize = function(tag) {
+                    var rect = self.getRectByElememt(tag);
+                    var offset = rect.offset.x + rect.size.width;
+                    if(offset < (self.width - 44)) {
+                        self.inputElement.style.width = (self.width -10 - offset) + "px";
+                    } else {
+                        self.inputElement.style.width = self.width + "px";
+                    }
+                };
+
+                this.removeTagObj = function(tagElt) {
+                    var n = tagElt.parentNode.childNodes.length;
+                    var idx = -1;
+                    for(var i=0;i<n; i++) {
+                        var el = tagElt.parentNode.childNodes[i];
+                        if(el == tagElt) {
+                            idx = i;
+                            break;
+                        }
+                    }
+
+                    if(idx >= 0 && idx < n) {
+                        self.tags.remove(idx);
+                    }
+                };
+
+                this.removeTag = function() {
+                    var elt = self.textFieldElement;
+                    var input = self.inputElement;
+                    if(input.value.length == 0) {
+                        var previousSibling = self.inputElement.parentNode.previousSibling;
+                        if(previousSibling) {
+                            var strSelected = previousSibling.getAttribute("selected");
+                            var selected = Boolean(strSelected === "true");
+                            if(selected) {
+
+                                self.removeTagObj(previousSibling);
+
+                                self.textFieldElement.removeChild(previousSibling);
+                                previousSibling = self.inputElement.parentNode.previousSibling;
+                                self.relayoutInput(previousSibling);
+                            } else {
+                                previousSibling.style.backgroundColor = self.tagSelectedBackgroundColor;
+                                previousSibling.setAttribute("selected", "true");
+                            }
+                        }
+                    }
+                    return false;
+                };
+
+                this.relayoutInput = function(previousSibling) {
+                    if(previousSibling) {
+                        self.changeInputElementSize(previousSibling);
+                    } else {
+                        self.inputElement.style.width = self.width + "px";
+                        self.inputElement.placeholder = self.title;
+                    }
+                };
+
+                this.desselectLastTagIfNeed = function() {
+                    var elt = self.textFieldElement;
+                    var input = self.inputElement;
+                    var previousSibling = self.inputElement.parentNode.previousSibling;
+                    if(previousSibling) {
+                        var strSelected = previousSibling.getAttribute("selected");
+                        var selected = Boolean(strSelected === "true");
+                        if(selected) {
+                            previousSibling.setAttribute("selected", "false");
+                            previousSibling.style.backgroundColor ="#efefef";
+                        }
+                    }
+                };
+
+                this.onKeydown = function(e) {
+                    if(e) {
+                        if(e.keyCode == 13 /*|| e.keyCode == 32*/) {
+                            self.desselectLastTagIfNeed();
+                            self.addTag();
+                            return false;
+                        } else if(e.keyCode == 8){
+                            self.removeTag();
+                        } else {
+                            self.desselectLastTagIfNeed();
+                        }
+                    }
+                    self.delegate.onkeydown(self, e);
+                    return true;
+                };
+                
+                this.onKeyup = function(e) {
+                    
+                    if(!self.autoComplete.isInited) {
+                        self.autoComplete.element = document.createElement("UL");
+                        self.autoComplete.parent = self.textFieldElement;
+                        self.autoComplete.className = "tag-textfield-autocomplete";
+                        self.autoComplete.init();
+                    }
+                    if(self.inputElement.value.length == 0) {
+                        self.autoComplete.destory();
+                    } else {
+                        self.autoComplete.doQuerey(self.inputElement.value.trim());
+                    }
+                    self.delegate.onkeyup(self, e);
+                };
+                this.onBlur = function(e) {
+                    return;
+                    self.desselectLastTagIfNeed();
+                    self.addTag();
+                    self.autoComplete.destory();
+                    self.delegate.onblur(self, e);
+                };
+
+                this.onFocus = function(e) {
+                    self.desselectLastTagIfNeed();
+                    self.delegate.onfocus(self, e);
+                };
+
+
+                this.removeTagAction = function(e) {
+                    if(this && this.parentNode && this.parentNode.parentNode && self.textFieldElement) {
+                        
+                        var elt = this.parentNode.parentNode;
+                        self.removeTagObj(this.parentNode.parentNode);
+                        self.textFieldElement.removeChild(this.parentNode.parentNode);
+                        var previousSibling = self.inputElement.parentNode.previousSibling;
+                        self.relayoutInput(previousSibling);
+                    }
+                };
+            };
+
+            function UUMailComposer() {
+                var self = this;
+                this.recipientsTextfield = null;
+                this.ccTextfield = null;
+                this.bccTextfield = null;
+                this.contentEditor = null;
+                this.subjectTextfiled = null;
+                this.isInFocus = false;
+                this.savedRange = null;
+                this.attachments = [];
+
+                this.init = function (editorConfig) {
+                    
+                    var delegate = {
+                        // helper functions
+                        
+                        parseDisplayName : function(rfc822Adress) {
+                            var stack = [];
+                            var displayName = "";
+                            var offset = 0;
+                            for(var i=0; i<rfc822Adress.length; i++) {
+                                var c = rfc822Adress.charAt(i);
+                                if(c == '\"') {
+                                    if(stack.length > 0) {
+                                        var e = stack.pop();
+                                        if(e.token === c) {
+                                            displayName = rfc822Adress.substring(e.offset + 1, i);
+                                            offset = i;
+                                        }
+                                        break;
+                                    } else {
+                                        stack.push({token:c, offset:i});
+                                    }
+                                }
+                            }
+                            return {displayName:displayName, offset:offset};
+                        },
+                        parseMailbox : function(rfc822Adress, offset) {
+                            var stack = [];
+                            var mailbox = rfc822Adress;
+                            for(var i=0; i<rfc822Adress.length; i++) {
+                                var c = rfc822Adress.charAt(i);
+                                if(c == '<') {
+                                    stack.push({token:c, offset:i});
+                                } else if(c == '>') {
+                                    if(stack.length > 0) {
+                                        var e = stack.pop();
+                                        if(e.token === '<') {
+                                            mailbox = rfc822Adress.substring(e.offset + 1, i);
+                                            offset = i;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            return {mailbox:mailbox, offset:offset};
+                        },
+                        parseRFC822Address: function(rfc822Adress) {
+                            var de = delegate.parseDisplayName(rfc822Adress);
+                            var me = delegate.parseMailbox(rfc822Adress, de.offset);
+                            return {displayName : de.displayName, mailbox : me.mailbox};
+                        },
+                        //
+                        didApply: function(sender) {},
+                        didRemoveTag: function(sender) {},
+                        shouldAddTag : function(sender, text) {
+                            
+                            if(text != null && text.length > 0) {
+                                text = text.trim();
+                            }
+                            
+                            // 1. empty string
+                            if(text == null || text.length == 0) {
+                                return false;
+                            }
+                            // 2. email adress
+                            var re = /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
+                            var e = null;
+                            if(!re.test(text)) {
+                                // 3. rfc822 format address "詹林" <zhanleewo@gmail.com>
+                                e = delegate.parseRFC822Address(text);
+                                
+                                re = /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/;
+                                if(!re.test(e.mailbox)) {
+                                    return false;
+                                }
+                            } else {
+                                e = {displayName:"", mailbox:text};
+                            }
+                            
+                            for(var i=0; i<sender.tags.length; i++) {
+                                var tagObj = sender.tags[i];
+                                if(tagObj.mailbox === e.mailbox) {
+                                    sender.inputElement.style.backgroundColor = "#ff0000";
+                                    return false;
+                                }
+                            }
+                            return true;
+                        },
+                        tagObjectWithText : function(sender, text) {
+                            var e = delegate.parseRFC822Address(text);
+                            return e;
+                        },
+                        didAddTag: function(sender) {},
+                            // event
+                        onfocus : function(sender, e) {
+                            if(sender === self.recipientsTextfield) {
+                                self.ccTextfield.autoComplete.destory();
+                                self.bccTextfield.autoComplete.destory();
+                            } else if(sender === self.ccTextfield) {
+                                self.recipientsTextfield.autoComplete.destory();
+                                self.bccTextfield.autoComplete.destory();
+                            } else if(sender === self.bccTextfield) {
+                                self.recipientsTextfield.autoComplete.destory();
+                                self.ccTextfield.autoComplete.destory();
+                            }
+                        },
+                        onkeydown : function(sender, e) {
+                            if(e.keyCode != 13) {
+                                sender.inputElement.style.backgroundColor = "#ffffff";
+                            }
+                        },
+                        onkeyup : function(sender, e) {
+                        },
+                        onblur : function(sender, e) {
+                        }
+                    };
+
+                    var editorWidth = document.body.clientWidth - 4;
+                    
+                    self.recipientsTextfield = new UUTagTextField({
+                                                                  width : editorWidth,
+                                                                  minHeight : 32,
+                                                                  tags : [],
+                                                                  title : editorConfig.recipientsTitle,
+                                                                  allowRepeatTag : false,
+                                                                  tagSelectedBackgroundColor : "#46c3f1",
+                                                                  delegate:delegate,
+                                                                  tagStyles : {tagClassName:"recipients-tag-textfield-li", iconClassName:"recipients-tag-textfield-li-icon", titleClassName:"recipients-tag-textfield-li-title", buttonClassName:"recipients-tag-textfield-li-button-container", inputClassName:"recipients-tag-textfield-li-button"},
+                                                                  });
+                    
+                    self.ccTextfield = new UUTagTextField({
+                                                          width : editorWidth,
+                                                          minHeight : 32,
+                                                          tags : [],
+                                                          title : editorConfig.ccsTitle,
+                                                          allowRepeatTag : false,
+                                                          tagSelectedBackgroundColor : "#3ecb6a",
+                                                          delegate:delegate,
+                                                          tagStyles : {tagClassName:"cc-tag-textfield-li", iconClassName:"cc-tag-textfield-li-icon", titleClassName:"cc-tag-textfield-li-title", buttonClassName:"cc-tag-textfield-li-button-container", inputClassName:"cc-tag-textfield-li-button"},
+                                                          });
+
+                    self.bccTextfield = new UUTagTextField({
+                                                           width : editorWidth,
+                                                           minHeight : 32,
+                                                           tags : [],
+                                                           title : editorConfig.bccsTitle,
+                                                           allowRepeatTag : false,
+                                                           tagSelectedBackgroundColor : "#4fc400",
+                                                           delegate:delegate,
+                                                           tagStyles : {tagClassName:"bcc-tag-textfield-li", iconClassName:"bcc-tag-textfield-li-icon", titleClassName:"bcc-tag-textfield-li-title", buttonClassName:"bcc-tag-textfield-li-button-container", inputClassName:"bcc-tag-textfield-li-button"},
+                                                           });
+
+                    self.subjectTextfiled = document.getElementById("subject-input");
+                    self.subjectTextfiled.placeholder = editorConfig.subjectTitle;
+
+                    var stf = document.getElementById("subject-textfield");
+                    stf.style.width = editorWidth + "px";
+
+                    self.contentEditor = document.getElementById("content-editor");
+                    self.contentEditor.setAttribute('placeholder', editorConfig.contentTitle);
+                    self.contentEditor.style.width = editorWidth + "px";
+                };
+
+                this.launch = function () {
+                    self.recipientsTextfield.applyTo("recipients-tag-textfield", "recipients-input");
+                    self.ccTextfield.applyTo("cc-tag-textfield", "cc-input");
+                    self.bccTextfield.applyTo("bcc-tag-textfield", "bcc-input");
+                    //
+                    self.contentEditor.onmouseup = self.contentEditorOnMouseUp;
+                    self.contentEditor.onkeyup = self.contentEditorOnKeyUp;
+                    self.contentEditor.onfocus = self.contentEditorOnFocus;
+                };
+
+                this.saveSelection = function() {
+                    if(window.getSelection)//non IE Browsers
+                    {
+                        self.savedRange = window.getSelection().getRangeAt(0);
+                    }
+                    else if(document.selection)//IE
+                    {
+                        self.savedRange = document.selection.createRange();
+                    }
+                };
+                this.restoreSelection = function() {
+                    self.isInFocus = true;
+                    self.contentEditor.focus();
+                    if (self.savedRange != null) {
+                        if (window.getSelection)//non IE and there is already a selection
+                        {
+                            var s = window.getSelection();
+                            if (s.rangeCount > 0)
+                            s.removeAllRanges();
+                            s.addRange(mailComposer.savedRange);
+                        }
+                        else if (document.createRange)//non IE and no selection
+                        {
+                            window.getSelection().addRange(mailComposer.savedRange);
+                        }
+                        else if (document.selection)//IE
+                        {
+                            self.savedRange.select();
+                        }
+                    }
+                };
+                // events
+                this.contentEditorOnMouseUp = function(e) {
+                    self.saveSelection();
+                };
+                this.contentEditorOnKeyUp = function(e) {
+                    self.saveSelection();
+                };
+                this.contentEditorOnFocus = function(e) {
+                    self.restoreSelection();
+                };
+                // public operations
+                this.insertImage = function(imageName, imagePath) {
+                    //
+                    self.restoreSelection();
+                    //
+                    var imageElement = document.createElement('img');
+                    var breakElement1 = document.createElement('div');
+                    var breakElement2 = document.createElement('div');
+                    imageElement.setAttribute('src', imagePath);
+                    imageElement.setAttribute('id', imageName);
+                    breakElement1.innerHTML = "<br />";
+                    breakElement2.innerHTML = "<br />";
+                    //
+                    self.contentEditor.appendChild(breakElement1);
+                    self.contentEditor.appendChild(imageElement);
+                    self.contentEditor.appendChild(breakElement2);
+                },
+
+                this.updateImageURL = function(imageName, imageURL) {
+                    var selectedElement = document.getElementById(imageName);
+                    selectedElement.setAttribute('src', imageURL);
+                };
+
+                this.triggerFocus = function() {
+                    self.contentEditor.focus();
+                };
+
+                this.getMailContent = function() {
+                    return self.contentEditor.innerHTML;
+                };
+                this.getMailRecipients = function() {
+                    return self.recipientsTextfield.tags;
+                };
+                this.getMailCcs = function() {
+                    return self.ccTextfield.tags;
+                };
+                this.getMailBccs = function() {
+                    return self.bccTextfield.tags;
+                };
+                this.getMailSubject = function() {
+                    return self.subjectTextfiled.value;
+                };
+                this.getMailAttachments = function() {
+                    return self.attachments;
+                };
+                this.getMail = function(){
+                    var mail = {
+                        recipients : self.getMailRecipients(),
+                        ccs : self.getMailCcs(),
+                        bccs : self.getMailBccs(),
+                        subject : self.getMailSubject(),
+                        content : self.getMailContent(),
+                        attachments : self.attachments
+                    };
+                    return mail;
+                }
+            }
+        
+            var mailComposer = new UUMailComposer();
+            window.onload = function () {
+                mailComposer.init({recipientsTitle : "To : ", ccsTitle : "Cc : ", bccsTitle : "Bcc : ", subjectTitle : "Subject : ", contentTitle : "Please enter content here..."});
+                mailComposer.launch();
+            }
+        </script>
+    </head>
+    <body>
+        <ul id="recipients-tag-textfield" class="tag-textfield"><li><input id="recipients-input" type="text" autocorrect="off" autocapitalize="off" autofocus="true" /></li></ul>
+        <ul id="cc-tag-textfield" class="tag-textfield"><li><input id="cc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
+        <ul id="bcc-tag-textfield" class="tag-textfield"><li><input id="bcc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
+        <div id="subject-textfield" class="subject-textfield">
+            <input id="subject-input" class="subject-input" type="text" />
+        </div>
+
+        <div id="content-editor" class="content-editor" contenteditable="true"></div>
+        <div style="">
+            <h5>Attachments</h5>
+            <hr />
+        </div>
+    </body>
+</html>

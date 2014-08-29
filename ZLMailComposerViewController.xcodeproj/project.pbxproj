@@ -25,6 +25,11 @@
 		7452E37A19AF358F00D5A17D /* btn-tag-delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 7452E37719AF358F00D5A17D /* btn-tag-delete.png */; };
 		7452E37B19AF358F00D5A17D /* btn-tag-delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7452E37819AF358F00D5A17D /* btn-tag-delete@2x.png */; };
 		7452E37C19AF358F00D5A17D /* composer.html in Resources */ = {isa = PBXBuildFile; fileRef = 7452E37919AF358F00D5A17D /* composer.html */; };
+		7465E00A19B04B60009918EF /* btn-attach-add.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00819B04B60009918EF /* btn-attach-add.png */; };
+		7465E00B19B04B60009918EF /* btn-attach-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00919B04B60009918EF /* btn-attach-add@2x.png */; };
+		7465E00E19B05778009918EF /* avi.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00C19B05778009918EF /* avi.png */; };
+		7465E00F19B05778009918EF /* avi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00D19B05778009918EF /* avi@2x.png */; };
+		7465E01319B06E26009918EF /* DemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7465E01219B06E25009918EF /* DemoTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +66,12 @@
 		7452E37719AF358F00D5A17D /* btn-tag-delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-tag-delete.png"; sourceTree = "<group>"; };
 		7452E37819AF358F00D5A17D /* btn-tag-delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-tag-delete@2x.png"; sourceTree = "<group>"; };
 		7452E37919AF358F00D5A17D /* composer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = composer.html; sourceTree = "<group>"; };
+		7465E00819B04B60009918EF /* btn-attach-add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-attach-add.png"; sourceTree = "<group>"; };
+		7465E00919B04B60009918EF /* btn-attach-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-attach-add@2x.png"; sourceTree = "<group>"; };
+		7465E00C19B05778009918EF /* avi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avi.png; sourceTree = "<group>"; };
+		7465E00D19B05778009918EF /* avi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avi@2x.png"; sourceTree = "<group>"; };
+		7465E01119B06E25009918EF /* DemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTableViewController.h; sourceTree = "<group>"; };
+		7465E01219B06E25009918EF /* DemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,15 +131,15 @@
 		7452E34419AF338A00D5A17D /* ZLMailComposerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7452E37619AF358F00D5A17D /* Resources */,
+				7465E01019B06DDF009918EF /* ZLMailComposerViewController */,
 				7452E34D19AF338A00D5A17D /* ZLAppDelegate.h */,
 				7452E34E19AF338A00D5A17D /* ZLAppDelegate.m */,
 				7452E35019AF338A00D5A17D /* Main_iPhone.storyboard */,
 				7452E35319AF338A00D5A17D /* Main_iPad.storyboard */,
-				7452E35619AF338A00D5A17D /* ZLMailComposerViewController.h */,
-				7452E35719AF338A00D5A17D /* ZLMailComposerViewController.m */,
 				7452E35919AF338A00D5A17D /* Images.xcassets */,
 				7452E34519AF338A00D5A17D /* Supporting Files */,
+				7465E01119B06E25009918EF /* DemoTableViewController.h */,
+				7465E01219B06E25009918EF /* DemoTableViewController.m */,
 			);
 			path = ZLMailComposerViewController;
 			sourceTree = "<group>";
@@ -165,11 +176,25 @@
 		7452E37619AF358F00D5A17D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7465E00C19B05778009918EF /* avi.png */,
+				7465E00D19B05778009918EF /* avi@2x.png */,
+				7465E00819B04B60009918EF /* btn-attach-add.png */,
+				7465E00919B04B60009918EF /* btn-attach-add@2x.png */,
 				7452E37719AF358F00D5A17D /* btn-tag-delete.png */,
 				7452E37819AF358F00D5A17D /* btn-tag-delete@2x.png */,
 				7452E37919AF358F00D5A17D /* composer.html */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		7465E01019B06DDF009918EF /* ZLMailComposerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7452E35619AF338A00D5A17D /* ZLMailComposerViewController.h */,
+				7452E35719AF338A00D5A17D /* ZLMailComposerViewController.m */,
+				7452E37619AF358F00D5A17D /* Resources */,
+			);
+			name = ZLMailComposerViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,11 +275,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7452E35519AF338A00D5A17D /* Main_iPad.storyboard in Resources */,
+				7465E00A19B04B60009918EF /* btn-attach-add.png in Resources */,
+				7465E00E19B05778009918EF /* avi.png in Resources */,
+				7465E00B19B04B60009918EF /* btn-attach-add@2x.png in Resources */,
 				7452E35A19AF338A00D5A17D /* Images.xcassets in Resources */,
 				7452E35219AF338A00D5A17D /* Main_iPhone.storyboard in Resources */,
 				7452E37A19AF358F00D5A17D /* btn-tag-delete.png in Resources */,
 				7452E37C19AF358F00D5A17D /* composer.html in Resources */,
 				7452E34919AF338A00D5A17D /* InfoPlist.strings in Resources */,
+				7465E00F19B05778009918EF /* avi@2x.png in Resources */,
 				7452E37B19AF358F00D5A17D /* btn-tag-delete@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7465E01319B06E26009918EF /* DemoTableViewController.m in Sources */,
 				7452E34F19AF338A00D5A17D /* ZLAppDelegate.m in Sources */,
 				7452E34B19AF338A00D5A17D /* main.m in Sources */,
 				7452E35819AF338A00D5A17D /* ZLMailComposerViewController.m in Sources */,

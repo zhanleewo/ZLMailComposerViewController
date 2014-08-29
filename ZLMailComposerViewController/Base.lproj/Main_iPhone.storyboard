@@ -5,6 +5,53 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Demo Table View Controller-->
+        <scene sceneID="aWb-dV-hKm">
+            <objects>
+                <tableViewController id="cnR-6k-2Fq" customClass="DemoTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="xRs-T4-qiN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="vsV-gN-pNh">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vsV-gN-pNh" id="kyo-5U-7nf">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cnR-6k-2Fq" id="iaP-X6-4Wr"/>
+                            <outlet property="delegate" destination="cnR-6k-2Fq" id="n3b-ma-v5X"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="26y-S0-Bmo"/>
+                    <connections>
+                        <segue destination="pW9-II-VCg" kind="modal" identifier="showEmailComposer" id="iZo-TI-t3J"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G7T-2Q-zrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="890" y="110"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nbS-ZT-QfV">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="pW9-II-VCg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zxa-fX-87e">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="DlE-Ia-aR6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7gk-vA-Yde" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1518" y="110"/>
+        </scene>
         <!--Mail Composer View Controller - Composer-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -31,9 +78,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Composer" id="O7T-Fh-Ju2">
-                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="8Wx-Kj-eb1">
+                        <barButtonItem key="leftBarButtonItem" image="nav-item-back" id="KI5-tF-a6c">
                             <connections>
-                                <action selector="selectPhoto:" destination="vXZ-lx-hvc" id="Ilb-Ua-ncB"/>
+                                <action selector="backAction:" destination="vXZ-lx-hvc" id="aqh-AL-B8q"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="fpD-vJ-E19">
@@ -48,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="110"/>
+            <point key="canvasLocation" x="2145" y="110"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ILu-EF-BWF">
@@ -61,7 +108,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="fPq-zT-e9v"/>
+                        <segue destination="cnR-6k-2Fq" kind="relationship" relationship="rootViewController" id="xUa-nB-6wD"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ieQ-ZU-SJ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -69,6 +116,9 @@
             <point key="canvasLocation" x="341" y="110"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="nav-item-back" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -37,6 +37,7 @@
                     text-align:center;
                     line-height:24px;
                     font-size:16px;
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
                 }
                 .recipients-tag-textfield-li-icon {
                     float:left;
@@ -87,6 +88,7 @@
                 text-align:center;
                 line-height:24px;
                 font-size:16px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
             .cc-tag-textfield-li-icon {
                 float:left;
@@ -137,7 +139,9 @@
                 text-align:center;
                 line-height:24px;
                 font-size:16px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
+            
             .bcc-tag-textfield-li-icon {
                 float:left;
                 margin:2px 2px 2px 2px;
@@ -197,7 +201,7 @@
                     height:34px;
                     line-height:34px;
                     border-bottom:1px solid #ddd;
-                    -webkit-tap-highlight-color: rgba(240,240,240,1);
+                    -webkit-tap-highlight-color: rgba(0,0,0,0);
                 }
             
                 input {
@@ -207,21 +211,116 @@
                 .subject-textfield {
                     margin:0;
                     height:auto;
-                    min-height:32px;
+                    width:100%;
+                    min-height:34px;
                     clear:both;
                     border-bottom:1px solid #ddd;
                 }
                 .subject-input {
+                    float:left;
                     background:none;
                     border:none;
-                    width:100%;
-                    height:32px;
+                    width:calc(100% - 42px);
+                    height:34px;
                 }
                 .content-editor {
                     padding-top:10px;
                     min-height:100px;
                     -webkit-tap-highlight-color: rgba(0,0,0,0);
                 }
+            
+            .attachments-list {
+                margin:0;
+                padding:0;
+                list-style:none;
+                height:auto;
+                clear:both;
+                -moz-user-select:none;
+                -khtml-user-select:none;
+                user-select:none;
+                /*height:100%;
+                width:100%;
+                border:1px solid #000000;
+                content:"";
+                display:table;
+                background-color:#ffff00;*/
+            }
+            
+            .attachments-list-item {
+                float:left;
+                margin:2px 0 2px 0;
+                padding:0;
+                list-style:none;
+                height:60px;
+                width:100%;
+                clear:both;
+                border-radius:12px;
+                background-color:#efefef;
+                text-align:center;
+                line-height:60px;
+                font-size:16px;
+            }
+            .attachments-list-item-content-container {
+                float:left;
+                width:100%;
+                height:60px;
+                line-height:60px;
+                clear:both;
+                background-color:#efefef;
+            }
+            .attachments-list-item-icon {
+                float:left;
+                margin: 6px 6px 6px 6px;
+                width:48px;
+                height:48px;
+            }
+            .attachments-list-item-title{
+                float:left;
+                width:calc(100% - 80px);
+                height:60px;
+            }
+            .attachments-list-item-button-container {
+                float:right;
+                width:20px;
+                height:60px;
+                background-color:#33B6A4;
+            }
+            
+            .attachments-list-item-button {
+                margin:22px 2px 22px 2px;
+                width:16px;
+                height:16px;
+                background:none;
+                border:none;
+                background:url(btn-tag-delete.png) no-repeat;
+                background-size: 16px 16px;
+            }
+            
+            .attachment-add-button {
+                float:right;
+                margin:0;
+                padding:0;
+                width:32px;
+                height:34px;
+                background:none;
+                border:none;
+                background:url(btn-attach-add.png) no-repeat center;
+                background-size: 16px 16px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+            }
+            @media only screen and (-webkit-min-device-pixel-ratio: 2),
+            only screen and (min--moz-device-pixel-ratio: 2),
+            only screen and (-o-min-device-pixel-ratio: 2/1),
+            only screen and (min-device-pixel-ratio: 2) {
+                .attachments-list-item-button{
+                    background:url(btn-tag-delete@2x.png) no-repeat;
+                    background-size: 16px 16px;
+                }
+                .attachment-add-button {
+                    background:url(btn-attach-add@2x.png) no-repeat center;
+                    background-size: 16px 16px;
+                }
+            }
                 </style>
         <script type="text/javascript">
 
@@ -407,9 +506,10 @@
                         }
                     },
                     onSelect:function(idx, text, value) {
-                        self.desselectLastTagIfNeed();
-                        self.inputElement.value = "\"" + text + "\" <" + value + ">";
-                        self.addTag();
+//                        self.desselectLastTagIfNeed();
+//                        self.inputElement.value = "\"" + text + "\" <" + value + ">";
+//                        self.addTag();
+                        self.addTagWithValue({displayName:text, mailbox:value});
                         self.autoComplete.destory();
                     },
                 };
@@ -510,7 +610,33 @@
                     tagTitleDiv.innerText = tagTitle;
                     return tagDiv;
                 };
+                
+                this.addTagWithValue = function(tagObj) {
+                    
+                    if(!self.delegate.shouldAddTag(self, tagObj.mailbox)) {
+                        return;
+                    }
 
+                    var tagElt = null;
+                    if(tagObj.displayName.length > 0) {
+                        tagElt = self.createTag(tagObj.displayName);
+                    } else {
+                        tagElt = self.createTag(tagObj.mailbox);
+                    }
+                    
+                    self.textFieldElement.insertBefore(tagElt, self.inputElement.parentNode);
+                    self.tags.push(tagObj);
+                    
+                    self.delegate.didAddTag(self, tagObj);
+                    
+                    self.inputElement.value = "";
+                    self.changeInputElementSize(tagElt);
+                    
+                    if(self.tags  && self.tags.length > 0 && self.inputElement.placeholder.length > 0) {
+                        self.inputElement.placeholder = "";
+                    }
+                };
+                
                 this.addTag = function() {
 
                     if(!self.delegate.shouldAddTag(self, self.inputElement.value)) {
@@ -677,6 +803,8 @@
                 this.subjectTextfiled = null;
                 this.isInFocus = false;
                 this.savedRange = null;
+                this.attachButton = null;
+                this.attachmentsListView = null;
                 this.attachments = [];
 
                 this.init = function (editorConfig) {
@@ -761,7 +889,13 @@
                             for(var i=0; i<sender.tags.length; i++) {
                                 var tagObj = sender.tags[i];
                                 if(tagObj.mailbox === e.mailbox) {
-                                    sender.inputElement.style.backgroundColor = "#ff0000";
+                                    if(sender === self.recipientsTextfield) {
+                                        sender.textFieldElement.style.backgroundColor = "#46c3f1";
+                                    } else if(sender === self.ccTextfield) {
+                                        sender.textFieldElement.style.backgroundColor = "#3ecb6a";
+                                    } else if(sender === self.bccTextfield) {
+                                        sender.textFieldElement.style.backgroundColor = "#4fc400";
+                                    }
                                     return false;
                                 }
                             }
@@ -787,7 +921,7 @@
                         },
                         onkeydown : function(sender, e) {
                             if(e.keyCode != 13) {
-                                sender.inputElement.style.backgroundColor = "#ffffff";
+                                sender.textFieldElement.style.backgroundColor = "#ffffff";
                             }
                         },
                         onkeyup : function(sender, e) {
@@ -833,7 +967,9 @@
 
                     self.subjectTextfiled = document.getElementById("subject-input");
                     self.subjectTextfiled.placeholder = editorConfig.subjectTitle;
-
+                    self.attachButton = document.getElementById("uu-attachment-add-button");
+                    self.attachmentsListView = document.getElementById("attachments-list-view");
+                    
                     var stf = document.getElementById("subject-textfield");
                     stf.style.width = editorWidth + "px";
 
@@ -850,6 +986,8 @@
                     self.contentEditor.onmouseup = self.contentEditorOnMouseUp;
                     self.contentEditor.onkeyup = self.contentEditorOnKeyUp;
                     self.contentEditor.onfocus = self.contentEditorOnFocus;
+                    //
+                    self.attachButton.onclick = self.addAttachmentAction;
                 };
 
                 this.saveSelection = function() {
@@ -893,6 +1031,112 @@
                 this.contentEditorOnFocus = function(e) {
                     self.restoreSelection();
                 };
+                
+                this.bridgeToWebview = function(ev) {
+                    if(ev.name == "add-attachment") {
+                        window.open("umcomposer://add-attachment");
+                    } else if(ev.name == "remove-attachment") {
+                        window.open("umcomposer://remove-attachment");
+                    }
+                };
+                
+                this.addAttachmentAction = function(e) {
+                    var ev = {name:"add-attachment", info:null};
+                    self.bridgeToWebview(ev);
+                };
+                
+                this.removeAttachmentAction = function(e) {
+                    self.attachmentsListView.removeChild(this.parentNode.parentNode.parentNode);
+                };
+                
+                this.didAddAttachment = function(att){
+                    
+                    var liElt = document.createElement("LI");
+                    liElt.className = "attachments-list-item";
+                    
+                    var containerFrameDiv = document.createElement("DIV");
+                    containerFrameDiv.className = "attachments-list-item-content-container";
+                    
+                    var iconFrameDiv = document.createElement("DIV");
+                    iconFrameDiv.className = "attachments-list-item-icon";
+                    
+                    var iconElt = document.createElement("IMG");
+                    iconElt.style.float = "left";
+                    iconElt.style.margin = "0";
+                    iconElt.style.padding = "0";
+                    iconElt.style.maxWidth = "48px";
+                    iconElt.style.maxHeight = "48px";
+                    
+                    
+                    var titleFrameDiv = document.createElement("DIV");
+                    titleFrameDiv.className = "attachments-list-item-title";
+                    
+                    var titleDiv = document.createElement("DIV");
+                    titleDiv.style.float = "left";
+                    titleDiv.style.margin = "6px 0 0 0";
+                    titleDiv.style.padding = "0";
+                    titleDiv.style.height = "24px";
+                    titleDiv.style.width = "100%";
+                    titleDiv.style.fontSize = "14px";
+                    titleDiv.style.textAlign = "left";
+                    titleDiv.style.fontWeight = "bold";
+                    titleDiv.style.lineHeight = "24px";
+                    titleDiv.style.color = "#999999";
+                    
+                    var typeDiv = document.createElement("DIV");
+                    typeDiv.style.float = "left";
+                    typeDiv.style.margin = "0 0 6px 0";
+                    typeDiv.style.padding = "0";
+                    typeDiv.style.height = "24px";
+                    typeDiv.style.width = "50%";
+                    typeDiv.style.fontSize = "12px";
+                    typeDiv.style.textAlign = "left";
+                    typeDiv.style.lineHeight = "24px";
+                    typeDiv.style.color = "#cecece";
+                    
+                    var sizeDiv = document.createElement("DIV");
+                    sizeDiv.style.float = "right";
+                    sizeDiv.style.margin = "0 0 6px 0;";
+                    sizeDiv.style.padding = "0";
+                    sizeDiv.style.height = "24px";
+                    sizeDiv.style.width = "50%";
+                    sizeDiv.style.fontSize = "12px";
+                    sizeDiv.style.textAlign = "left";
+                    sizeDiv.style.lineHeight = "24px";
+                    sizeDiv.style.color = "#c0c0c0";
+                    
+                    
+                    var buttonContainerDiv = document.createElement("DIV");
+                    buttonContainerDiv.className = "attachments-list-item-button-container";
+                    
+                    var buttonInput = document.createElement("INPUT");
+                    buttonInput.type = "button";
+                    buttonInput.className = "attachments-list-item-button";
+                    buttonInput.onclick = self.removeAttachmentAction;
+                    
+                    iconFrameDiv.appendChild(iconElt);
+                    
+                    titleFrameDiv.appendChild(titleDiv);
+                    titleFrameDiv.appendChild(typeDiv);
+                    titleFrameDiv.appendChild(sizeDiv);
+                    
+                    buttonContainerDiv.appendChild(buttonInput);
+                    
+                    containerFrameDiv.appendChild(iconFrameDiv);
+                    containerFrameDiv.appendChild(titleFrameDiv);
+                    containerFrameDiv.appendChild(buttonContainerDiv);
+                    
+                    liElt.appendChild(containerFrameDiv);
+                    
+                    self.attachmentsListView.appendChild(liElt);
+                    
+                    //att = {icon:"file:////.....png", title:"XXXX.png", src:"file:///....png", type:"类型:PNG", size:"大小:2.1M", error:null}
+                    iconElt.src = att.icon;
+                    titleDiv.innerHTML = att.title;
+                    typeDiv.innerHTML = att.type;
+                    sizeDiv.innerHTML = att.size;
+                }
+                
                 // public operations
                 this.insertImage = function(imageName, imagePath) {
                     //
@@ -964,12 +1208,14 @@
         <ul id="bcc-tag-textfield" class="tag-textfield"><li><input id="bcc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
         <div id="subject-textfield" class="subject-textfield">
             <input id="subject-input" class="subject-input" type="text" />
+            <div id="uu-attachment-add-button" class="attachment-add-button"></div>
         </div>
 
         <div id="content-editor" class="content-editor" contenteditable="true"></div>
-        <div style="">
+        <div>
             <h5>Attachments</h5>
-            <hr />
+            <ul class="attachments-list" id="attachments-list-view">
+            </ul>
         </div>
     </body>
 </html>

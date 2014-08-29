@@ -17,6 +17,45 @@
 
 @implementation ZLMailComposerViewController
 
+- (void) setupComposer {
+    
+}
+
+- (void) setupComposerWithRecipients:(NSArray *) recipients
+                          andSubject:(NSString *) subject
+                          andContent:(NSString *) content {
+
+}
+
+- (void) setupComposerWithRecipients:(NSArray *) recipients
+                              andCCs:(NSArray *) ccs
+                          andSubject:(NSString *) subject
+                          andContent:(NSString *) content {
+
+}
+
+
+- (void) setupComposerWithRecipients:(NSArray *) recipients
+                              andCCs:(NSArray *) ccs
+                          andSubject:(NSString *) subject
+                          andContent:(NSString *) content
+                      andAttachments:(NSArray *)attachments {
+
+}
+
+- (void) setupComposerWithRecipients:(NSArray *) recipients
+                              andCCs:(NSArray *) ccs
+                             andBCCs:(NSArray *) bccs
+                          andSubject:(NSString *) subject
+                          andContent:(NSString *) content
+                      andAttachments:(NSArray *)attachments {
+
+}
+
+- (void) setupComposerWithContent:(NSString *) content
+                   andAttachments:(NSArray *) attachments {
+
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -49,15 +88,42 @@
     NSBundle *bundle = [NSBundle mainBundle];
     NSURL *indexFileURL = [bundle URLForResource:@"composer" withExtension:@"html"];
     
+    /*
+    NSURL *baseURL = [bundle bundleURL];
+    NSData *data = [NSData dataWithContentsOfURL:indexFileURL];
     [self.webView setKeyboardDisplayRequiresUserAction:NO];
+    [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
+    */
+    
     [self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];
 }
 
+- (void) processComposerEvent:(NSURL *) url {
+    if([url.host isEqualToString:@"add-attachment"]) {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePickerController.delegate = self;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSURL *url = request.URL;
+    if([url.scheme isEqualToString:@"umcomposer"]) {
+        [self processComposerEvent:url];
+        return NO;
+    }
+    return YES;
+}
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     //    NSString *inputPlaceholder = NSLocalizedString(@"Subject", @"Subject");
     //    NSString *contentPlaceholder = NSLocalizedString(@"Content", @"Content");
     //    NSString *script = [NSString stringWithFormat:@"window.initPlaceholder('%@', '%@')", inputPlaceholder, contentPlaceholder];
     //    [webView stringByEvaluatingJavaScriptFromString:script];
+}
+- (IBAction)backAction:(id)sender {
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender {
@@ -166,6 +232,79 @@
         
 	}
 }
+
+- (NSString *) sizeToString:(NSUInteger) size {
+
+    NSString *str = @"";
+    if(size < 1024L) {
+        str = [NSString stringWithFormat:@"%luBytes", (unsigned long)size];
+    } else if(size >=1024 && size < (1024L * 1024L)) {
+        str = [NSString stringWithFormat:@"%luKB", (((unsigned long)size) / 1024L)];
+    } else if(size >=(1024L * 1024L) && size < (1024L * 1024L * 1024L)) {
+        str = [NSString stringWithFormat:@"%luMB", (((unsigned long)size) / 1024L / 1024L)];
+    } else {
+        str = [NSString stringWithFormat:@"%luGB", (((unsigned long)size) / 1024L / 1024L/ 1024L)];
+    }
+    return str;
+}
+
+- (UIImage*) scaleImageWithImage:(UIImage*)image
+              size:(CGSize)newSize;
+{
+    UIGraphicsBeginImageContext( newSize );
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (UIImage*)getSubImageFrom: (UIImage*) img withRect: (CGRect) rect {
+    
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // translated rectangle for drawing sub image
+    CGRect drawRect = CGRectMake(-rect.origin.x, -rect.origin.y, img.size.width, img.size.height);
+    
+    // clip to the bounds of the image context
+    // not strictly necessary as it will get clipped anyway?
+    CGContextClipToRect(context, CGRectMake(0, 0, rect.size.width, rect.size.height));
+    
+    // draw image
+    [img drawInRect:drawRect];
+    
+    // grab image
+    UIImage* subImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return subImage;
+}
+
+- (UIImage *) iconForImage:(UIImage *) orgImage {
+    UIImage *iconImage = nil;
+    CGSize destSize = orgImage.size;
+    CGPoint destPos = CGPointMake(0, 0);
+    if(destSize.width > destSize.height) {
+        destSize.width = destSize.height;
+        destPos.x = (destSize.width - destSize.height) / 2.0f;
+    } else {
+        destSize.height = destSize.width;
+        destPos.y = (destSize.height - destSize.width) / 2.0f;
+    }
+    
+    CGRect rect = {.origin = destPos, .size = destSize};
+    iconImage = [self getSubImageFrom:orgImage withRect:rect];
+    if([UIScreen mainScreen].scale == 2.0f) {
+        iconImage = [self scaleImageWithImage:iconImage size:CGSizeMake(96, 96)];
+    } else {
+        iconImage = [self scaleImageWithImage:iconImage size:CGSizeMake(48, 48)];
+    }
+    
+    return iconImage;
+}
+
 #pragma mark - ImagePickerController Delegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -173,16 +312,29 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSDate *now = [NSDate date];
-    NSString *imageName = [NSString stringWithFormat:@"photo%@.jpg", [self stringFromDate:now]];
+    NSString *strDate = [self stringFromDate:now];
+    NSString *imageName = [NSString stringWithFormat:@"photo%@.jpg", strDate];
+    NSString *iconName = [NSString stringWithFormat:@"icon%@.jpg", strDate];
+    
     NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+    NSString *iconPath = [documentsDirectory stringByAppendingPathComponent:iconName];
+    
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    NSUInteger size = 0;
     if ([mediaType isEqualToString:@"public.image"]) {
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        size = imageData.length;
         [imageData writeToFile:imagePath atomically:YES];
+        
+        UIImage *iconImage = [self iconForImage:image];
+        NSData *iconData = UIImageJPEGRepresentation(iconImage, 1);
+        [iconData writeToFile:iconPath atomically:YES];
     }
     
-    NSString *script = [NSString stringWithFormat:@"mailComposer.insertImage('%@', '%@')", imageName, imagePath];
+    //NSString *script = [NSString stringWithFormat:@"mailComposer.insertImage('%@', '%@')", imageName, imagePath];
+    NSString *script = [NSString stringWithFormat:@"mailComposer.didAddAttachment({icon:\"%@\", title:\"%@\", src:\"%@\", type:\"类型:JPEG\", size:\"大小:%@\", error:null})", iconPath, imageName, imagePath, [self sizeToString:size]];
+    //;
     [self.webView stringByEvaluatingJavaScriptFromString:script];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

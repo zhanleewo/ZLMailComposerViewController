@@ -62,7 +62,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"showEmailComposer" sender:indexPath];
+    [self performSegueWithIdentifier:@"showMailComposer" sender:indexPath];
 }
 /*
 // Override to support conditional editing of the table view.

@@ -58,7 +58,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self loadWebView];
     
     //[[UIMenuController sharedMenuController] setMenuItems:nil];
@@ -103,7 +102,7 @@
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         imagePickerController.delegate = self;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+        [self.navigationController presentViewController:imagePickerController animated:YES completion:nil];
     }
 }
 
@@ -332,10 +331,10 @@
         [iconData writeToFile:iconPath atomically:YES];
     }
     
+    [picker dismissViewControllerAnimated:YES completion:nil];
     //NSString *script = [NSString stringWithFormat:@"mailComposer.insertImage('%@', '%@')", imageName, imagePath];
     NSString *script = [NSString stringWithFormat:@"mailComposer.didAddAttachment({icon:\"%@\", title:\"%@\", src:\"%@\", type:\"类型:JPEG\", size:\"大小:%@\", error:null})", iconPath, imageName, imagePath, [self sizeToString:size]];
     //;
     [self.webView stringByEvaluatingJavaScriptFromString:script];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

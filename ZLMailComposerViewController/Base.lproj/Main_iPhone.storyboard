@@ -30,7 +30,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="26y-S0-Bmo"/>
                     <connections>
-                        <segue destination="pW9-II-VCg" kind="modal" identifier="showEmailComposer" id="iZo-TI-t3J"/>
+                        <segue destination="pW9-II-VCg" kind="modal" identifier="showMailComposer" id="g28-Kf-dzI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G7T-2Q-zrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -40,7 +40,7 @@
         <!--Navigation Controller-->
         <scene sceneID="nbS-ZT-QfV">
             <objects>
-                <navigationController definesPresentationContext="YES" id="pW9-II-VCg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mailComposer" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pW9-II-VCg" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zxa-fX-87e">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

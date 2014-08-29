@@ -29,7 +29,7 @@
             
                 .recipients-tag-textfield-li {
                     float:left;
-                    margin:2px 2px 2px 2px;
+                    margin:5px 2px 5px 2px;
                     list-style:none;
                     height:24px;
                     border-radius:12px;
@@ -80,7 +80,7 @@
             
             .cc-tag-textfield-li {
                 float:left;
-                margin:2px 2px 2px 2px;
+                margin:5px 2px 5px 2px;
                 list-style:none;
                 height:24px;
                 border-radius:12px;
@@ -131,7 +131,7 @@
             
             .bcc-tag-textfield-li {
                 float:left;
-                margin:2px 2px 2px 2px;
+                margin:5px 2px 5px 2px;
                 list-style:none;
                 height:24px;
                 border-radius:12px;
@@ -193,7 +193,7 @@
                     clear:both;
                     background-color:#fefefe;
                     font-size:12px;
-                    min-height:120px;
+                    /*min-height:120px;*/
                     -webkit-tap-highlight-color: rgba(0,0,0,0);
                 }
             
@@ -487,6 +487,16 @@
                                                            return false;
                                                           });
                             var n = self.autoComplete.filterdDatas.length;
+                            if(n == 0) {
+                                if(self.autoComplete.frameDiv.style.display != "none") {
+                                    self.autoComplete.frameDiv.style.display = "none";
+                                }
+                            } else {
+                                if(self.autoComplete.frameDiv.style.display != "inline") {
+                                    self.autoComplete.frameDiv.style.display="inline";
+                                }
+                            }
+                            
                             for(var i=0; i<n; i++) {
                                 var autoCompleteItemElement = document.createElement("LI");
                                 autoCompleteItemElement.setAttribute("dataIndex", i);
@@ -903,6 +913,10 @@
                         },
                         tagObjectWithText : function(sender, text) {
                             var e = delegate.parseRFC822Address(text);
+                            if(e.displayName.length == 0) {
+                                var idx = e.mailbox.indexOf("@");
+                                e.displayName = e.mailbox.substring(0, idx);
+                            }
                             return e;
                         },
                         didAddTag: function(sender) {},

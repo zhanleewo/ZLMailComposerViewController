@@ -30,6 +30,7 @@
 		7465E00E19B05778009918EF /* avi.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00C19B05778009918EF /* avi.png */; };
 		7465E00F19B05778009918EF /* avi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00D19B05778009918EF /* avi@2x.png */; };
 		7465E01319B06E26009918EF /* DemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7465E01219B06E25009918EF /* DemoTableViewController.m */; };
+		7465E01619B07E9C009918EF /* ZLMailComposerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7465E01519B07E9C009918EF /* ZLMailComposerNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		7465E00D19B05778009918EF /* avi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avi@2x.png"; sourceTree = "<group>"; };
 		7465E01119B06E25009918EF /* DemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoTableViewController.h; sourceTree = "<group>"; };
 		7465E01219B06E25009918EF /* DemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTableViewController.m; sourceTree = "<group>"; };
+		7465E01419B07E9C009918EF /* ZLMailComposerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLMailComposerNavigationController.h; sourceTree = "<group>"; };
+		7465E01519B07E9C009918EF /* ZLMailComposerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLMailComposerNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +196,8 @@
 				7452E35619AF338A00D5A17D /* ZLMailComposerViewController.h */,
 				7452E35719AF338A00D5A17D /* ZLMailComposerViewController.m */,
 				7452E37619AF358F00D5A17D /* Resources */,
+				7465E01419B07E9C009918EF /* ZLMailComposerNavigationController.h */,
+				7465E01519B07E9C009918EF /* ZLMailComposerNavigationController.m */,
 			);
 			name = ZLMailComposerViewController;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7465E01619B07E9C009918EF /* ZLMailComposerNavigationController.m in Sources */,
 				7465E01319B06E26009918EF /* DemoTableViewController.m in Sources */,
 				7452E34F19AF338A00D5A17D /* ZLAppDelegate.m in Sources */,
 				7452E34B19AF338A00D5A17D /* main.m in Sources */,

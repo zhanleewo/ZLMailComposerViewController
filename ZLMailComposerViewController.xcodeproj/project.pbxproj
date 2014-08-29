@@ -15,7 +15,7 @@
 		7452E34F19AF338A00D5A17D /* ZLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7452E34E19AF338A00D5A17D /* ZLAppDelegate.m */; };
 		7452E35219AF338A00D5A17D /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7452E35019AF338A00D5A17D /* Main_iPhone.storyboard */; };
 		7452E35519AF338A00D5A17D /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7452E35319AF338A00D5A17D /* Main_iPad.storyboard */; };
-		7452E35819AF338A00D5A17D /* ZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7452E35719AF338A00D5A17D /* ZLViewController.m */; };
+		7452E35819AF338A00D5A17D /* ZLMailComposerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7452E35719AF338A00D5A17D /* ZLMailComposerViewController.m */; };
 		7452E35A19AF338A00D5A17D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7452E35919AF338A00D5A17D /* Images.xcassets */; };
 		7452E36119AF338A00D5A17D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7452E36019AF338A00D5A17D /* XCTest.framework */; };
 		7452E36219AF338A00D5A17D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7452E33E19AF338A00D5A17D /* Foundation.framework */; };
@@ -50,8 +50,8 @@
 		7452E34E19AF338A00D5A17D /* ZLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLAppDelegate.m; sourceTree = "<group>"; };
 		7452E35119AF338A00D5A17D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		7452E35419AF338A00D5A17D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		7452E35619AF338A00D5A17D /* ZLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLViewController.h; sourceTree = "<group>"; };
-		7452E35719AF338A00D5A17D /* ZLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLViewController.m; sourceTree = "<group>"; };
+		7452E35619AF338A00D5A17D /* ZLMailComposerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZLMailComposerViewController.h; sourceTree = "<group>"; };
+		7452E35719AF338A00D5A17D /* ZLMailComposerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZLMailComposerViewController.m; sourceTree = "<group>"; };
 		7452E35919AF338A00D5A17D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7452E35F19AF338A00D5A17D /* ZLMailComposerViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZLMailComposerViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7452E36019AF338A00D5A17D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -125,8 +125,8 @@
 				7452E34E19AF338A00D5A17D /* ZLAppDelegate.m */,
 				7452E35019AF338A00D5A17D /* Main_iPhone.storyboard */,
 				7452E35319AF338A00D5A17D /* Main_iPad.storyboard */,
-				7452E35619AF338A00D5A17D /* ZLViewController.h */,
-				7452E35719AF338A00D5A17D /* ZLViewController.m */,
+				7452E35619AF338A00D5A17D /* ZLMailComposerViewController.h */,
+				7452E35719AF338A00D5A17D /* ZLMailComposerViewController.m */,
 				7452E35919AF338A00D5A17D /* Images.xcassets */,
 				7452E34519AF338A00D5A17D /* Supporting Files */,
 			);
@@ -276,7 +276,7 @@
 			files = (
 				7452E34F19AF338A00D5A17D /* ZLAppDelegate.m in Sources */,
 				7452E34B19AF338A00D5A17D /* main.m in Sources */,
-				7452E35819AF338A00D5A17D /* ZLViewController.m in Sources */,
+				7452E35819AF338A00D5A17D /* ZLMailComposerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +491,7 @@
 				7452E37219AF338A00D5A17D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7452E37319AF338A00D5A17D /* Build configuration list for PBXNativeTarget "ZLMailComposerViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +500,7 @@
 				7452E37519AF338A00D5A17D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -6,16 +6,16 @@
 //  Copyright (c) 2014年 Lin Zhan. All rights reserved.
 //
 
-#import "ZLViewController.h"
+#import "ZLMailComposerViewController.h"
 
-@interface ZLViewController ()
+@interface ZLMailComposerViewController ()
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender;
 - (IBAction)printHTML:(UIBarButtonItem *)sender;
 @end
 
-@implementation ZLViewController
+@implementation ZLMailComposerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

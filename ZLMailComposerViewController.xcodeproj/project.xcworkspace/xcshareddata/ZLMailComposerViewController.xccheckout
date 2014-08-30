@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>CE0BA381-D162-4282-9308-B821C0580EBB</string>
+	<string>8DD41013-9FC6-4926-88D3-88BD1125E44D</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ZLMailComposerViewController</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>04563982-0A29-47CD-AD14-26614F21E029</key>
-		<string>https://github.com/zhanleewo/ZLMailComposerViewController</string>
+		<key>6BBA267B-68DE-4EBB-BB38-99E28E11DA5A</key>
+		<string>https://github.com/zhanleewo/ZLMailComposerViewController.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ZLMailComposerViewController.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>04563982-0A29-47CD-AD14-26614F21E029</key>
+		<key>6BBA267B-68DE-4EBB-BB38-99E28E11DA5A</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/zhanleewo/ZLMailComposerViewController</string>
+	<string>https://github.com/zhanleewo/ZLMailComposerViewController.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>04563982-0A29-47CD-AD14-26614F21E029</string>
+	<string>6BBA267B-68DE-4EBB-BB38-99E28E11DA5A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>04563982-0A29-47CD-AD14-26614F21E029</string>
+			<string>6BBA267B-68DE-4EBB-BB38-99E28E11DA5A</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ZLMailComposerViewController-git</string>
+			<string>ZLMailComposerViewController</string>
 		</dict>
 	</array>
 </dict>

@@ -10,75 +10,28 @@
                     margin-top: 10px;
                     margin-bottom: 10px;
                 }
-                /* placeholder for contenteditable dom */
-                [contenteditable=true]:empty:before{
-                    content: attr(placeholder);
-                    color: #a6a6a6;
-                }
-
-                .tag-textfield {
-                    margin:0;
-                    padding:0;
-                    height:100%;
-                    border:1px solid #000000;
-                    clear:both;
-                    content:"";
-                    display:table;
-                    list-style:none;
-                }
+            input {
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-border-radius:0;
+            }
+            /* placeholder for contenteditable dom */
+            [contenteditable=true]:empty:before{
+                content: attr(placeholder);
+                color: #a6a6a6;
+            }
             
-                .recipients-tag-textfield-li {
-                    float:left;
-                    margin:5px 2px 5px 2px;
-                    list-style:none;
-                    height:24px;
-                    border-radius:12px;
-                    background-color:#efefef;
-                    text-align:center;
-                    line-height:24px;
-                    font-size:16px;
-                    -webkit-tap-highlight-color: rgba(0,0,0,0);
-                }
-                .recipients-tag-textfield-li-icon {
-                    float:left;
-                    margin:2px 2px 2px 2px;
-                    padding:0;
-                    width:20px;
-                    height:20px;
-                    line-height:20px;
-                    border:none;/*0px solid #379082*/
-                    border-radius:10px;
-                    background-color:#ff493f;
-                    color:#ffffff;
-                    font-size:16px;
-                    text-transform:uppercase;
-                }
-                .recipients-tag-textfield-li-title {
-                    float:left;
-                    margin:2px 0 2px 2px;
-                    height:20px;
-                    overflow:hidden;
-                    line-height:20px;
-                    max-width:200px;
-                    color:#000000;
-                    font-size:12px;
-                }
-                .recipients-tag-textfield-li-button-container {
-                    float:right;
-                    margin:0 0 0 0;
-                    width:24px;
-                    height:24px;
-                }
-                .recipients-tag-textfield-li-button {
-                    margin:4px 4px 4px 4px;
-                    width:16px;
-                    height:16px;
-                    background:none;
-                    border:none;
-                }
+            .um-tag-textfield {
+                margin:0;
+                padding:0;
+                height:100%;
+                border:1px solid #000000;
+                clear:both;
+                content:"";
+                display:table;
+                list-style:none;
+            }
             
-            
-            .cc-tag-textfield-li {
+            .um-tag-textfield-li {
                 float:left;
                 margin:5px 2px 5px 2px;
                 list-style:none;
@@ -90,7 +43,45 @@
                 font-size:16px;
                 -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
-            .cc-tag-textfield-li-icon {
+            .um-tag-textfield-li-title {
+                float:left;
+                margin:2px 0 2px 2px;
+                height:20px;
+                overflow:hidden;
+                line-height:20px;
+                max-width:200px;
+                color:#000000;
+                font-size:12px;
+            }
+            .um-tag-textfield-li-button-container {
+                float:right;
+                margin:0 0 0 0;
+                width:24px;
+                height:24px;
+            }
+            .um-tag-textfield-li-button {
+                margin:4px 4px 4px 4px;
+                width:16px;
+                height:16px;
+                background:none;
+                border:none;
+            }
+            .um-to-tag-textfield-li-icon {
+                float:left;
+                margin:2px 2px 2px 2px;
+                padding:0;
+                width:20px;
+                height:20px;
+                line-height:20px;
+                border:none;/*0px solid #379082*/
+                border-radius:10px;
+                background-color:#ff493f;
+                color:#ffffff;
+                font-size:16px;
+                text-transform:uppercase;
+            }
+            
+            .um-cc-tag-textfield-li-icon {
                 float:left;
                 margin:2px 2px 2px 2px;
                 padding:0;
@@ -104,45 +95,7 @@
                 font-size:16px;
                 text-transform:uppercase;
             }
-            .cc-tag-textfield-li-title {
-                float:left;
-                margin:2px 0 2px 2px;
-                height:20px;
-                overflow:hidden;
-                line-height:20px;
-                max-width:200px;
-                color:#000000;
-                font-size:12px;
-            }
-            .cc-tag-textfield-li-button-container {
-                float:right;
-                margin:0 0 0 0;
-                width:24px;
-                height:24px;
-            }
-            .cc-tag-textfield-li-button {
-                margin:4px 4px 4px 4px;
-                width:16px;
-                height:16px;
-                background:none;
-                border:none;
-            }
-            
-            
-            .bcc-tag-textfield-li {
-                float:left;
-                margin:5px 2px 5px 2px;
-                list-style:none;
-                height:24px;
-                border-radius:12px;
-                background-color:#efefef;
-                text-align:center;
-                line-height:24px;
-                font-size:16px;
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
-            }
-            
-            .bcc-tag-textfield-li-icon {
+            .um-bcc-tag-textfield-li-icon {
                 float:left;
                 margin:2px 2px 2px 2px;
                 padding:0;
@@ -156,80 +109,53 @@
                 font-size:16px;
                 text-transform:uppercase;
             }
-            .bcc-tag-textfield-li-title {
+            
+            .um-tag-textfield-autocomplete {
+                /*position:absolute;
+                 z-index:100000,*/
                 float:left;
-                margin:2px 0 2px 2px;
-                height:20px;
-                overflow:hidden;
-                line-height:20px;
-                max-width:200px;
-                color:#000000;
+                margin:0;
+                padding:0;
+                width:100%;
+                height:auto;
+                list-style:none;
+                /*border:1px solid #cccccc;*/
+                clear:both;
+                background-color:#fefefe;
                 font-size:12px;
+                /*min-height:120px;*/
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
-            .bcc-tag-textfield-li-button-container {
-                float:right;
-                margin:0 0 0 0;
-                width:24px;
-                height:24px;
+            
+            .um-tag-textfield-autocomplete li {
+                height:34px;
+                line-height:34px;
+                border-bottom:1px solid #ddd;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
-            .bcc-tag-textfield-li-button {
-                margin:4px 4px 4px 4px;
-                width:16px;
-                height:16px;
+            
+            .um-subject-textfield {
+                margin:0;
+                height:auto;
+                width:100%;
+                min-height:34px;
+                clear:both;
+                border-bottom:1px solid #ddd;
+            }
+            .um-subject-input {
+                float:left;
                 background:none;
                 border:none;
+                width:calc(100% - 42px);
+                height:34px;
             }
-            
-                .tag-textfield-autocomplete {
-                    /*position:absolute;
-                    z-index:100000,*/
-                    float:left;
-                    margin:0;
-                    padding:0;
-                    width:100%;
-                    height:auto;
-                    list-style:none;
-                    /*border:1px solid #cccccc;*/
-                    clear:both;
-                    background-color:#fefefe;
-                    font-size:12px;
-                    /*min-height:120px;*/
-                    -webkit-tap-highlight-color: rgba(0,0,0,0);
+            .um-content-editor {
+                padding-top:10px;
+                min-height:100px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
                 }
             
-                .tag-textfield-autocomplete li {
-                    height:34px;
-                    line-height:34px;
-                    border-bottom:1px solid #ddd;
-                    -webkit-tap-highlight-color: rgba(0,0,0,0);
-                }
-            
-                input {
-                    -webkit-tap-highlight-color: rgba(0,0,0,0);
-                    -webkit-border-radius:0;
-                }
-                .subject-textfield {
-                    margin:0;
-                    height:auto;
-                    width:100%;
-                    min-height:34px;
-                    clear:both;
-                    border-bottom:1px solid #ddd;
-                }
-                .subject-input {
-                    float:left;
-                    background:none;
-                    border:none;
-                    width:calc(100% - 42px);
-                    height:34px;
-                }
-                .content-editor {
-                    padding-top:10px;
-                    min-height:100px;
-                    -webkit-tap-highlight-color: rgba(0,0,0,0);
-                }
-            
-            .attachments-list {
+            .um-attachments-list {
                 margin:0;
                 padding:0;
                 list-style:none;
@@ -246,7 +172,7 @@
                 background-color:#ffff00;*/
             }
             
-            .attachments-list-item {
+            .um-attachments-list-item {
                 float:left;
                 margin:2px 0 2px 0;
                 padding:0;
@@ -260,7 +186,7 @@
                 line-height:60px;
                 font-size:16px;
             }
-            .attachments-list-item-content-container {
+            .um-attachments-list-item-content-container {
                 float:left;
                 width:100%;
                 height:60px;
@@ -268,25 +194,25 @@
                 clear:both;
                 background-color:#efefef;
             }
-            .attachments-list-item-icon {
+            .um-attachments-list-item-icon {
                 float:left;
                 margin: 6px 6px 6px 6px;
                 width:48px;
                 height:48px;
             }
-            .attachments-list-item-title{
+            .um-attachments-list-item-title{
                 float:left;
                 width:calc(100% - 80px);
                 height:60px;
             }
-            .attachments-list-item-button-container {
+            .um-attachments-list-item-button-container {
                 float:right;
                 width:20px;
                 height:60px;
                 background-color:#33B6A4;
             }
             
-            .attachments-list-item-button {
+            .um-attachments-list-item-button {
                 margin:22px 2px 22px 2px;
                 width:16px;
                 height:16px;
@@ -296,7 +222,7 @@
                 background-size: 16px 16px;
             }
             
-            .attachment-add-button {
+            .um-attachment-add-button {
                 float:right;
                 margin:0;
                 padding:0;
@@ -312,18 +238,18 @@
             only screen and (min--moz-device-pixel-ratio: 2),
             only screen and (-o-min-device-pixel-ratio: 2/1),
             only screen and (min-device-pixel-ratio: 2) {
-                .attachments-list-item-button{
+                .um-attachments-list-item-button{
                     background:url(btn-tag-delete@2x.png) no-repeat;
                     background-size: 16px 16px;
                 }
-                .attachment-add-button {
+                .um-attachment-add-button {
                     background:url(btn-attach-add@2x.png) no-repeat center;
                     background-size: 16px 16px;
                 }
             }
                 </style>
         <script type="text/javascript">
-
+            
             Array.prototype.remove = function(index) {
                 this.splice(index, 1);
             };
@@ -337,6 +263,8 @@
                 this.tagSelectedBackgroundColor = config.tagSelectedBackgroundColor;
                 this.title = config.title;
                 this.delegate = config.delegate;
+                this.contactsCallback = config.contactsCallback;
+                
                 this.marginLeft = 0;
                 this.marginRight = 0;
                 this.marginTop = 0;
@@ -436,31 +364,7 @@
                         }
                     },
                     datas : function() {
-                        return [{
-                                    displayName : "朱茵",
-                                    mailbox : "zhu.yin@163.com",
-                                }, {
-                                    displayName : "张学友",
-                                    mailbox : "jack.chang@163.com",
-                                }, {
-                                    displayName : "刘德华",
-                                    mailbox : "andy.liu@163.com",
-                                }, {
-                                    displayName : "吴宗宪",
-                                    mailbox : "zongxian.wu@163.com",
-                                }, {
-                                    displayName : "James",
-                                    mailbox : "james@163.com",
-                                }, {
-                                    displayName : "郭富城",
-                                    mailbox : "fucheng.guo@163.com",
-                                }, {
-                                    displayName : "黎明",
-                                    mailbox : "ming.li@163.com",
-                                }, {
-                                    displayName : "去哪儿",
-                                    mailbox : "qunaer@163.com",
-                                }];
+                        return self.contactsCallback();
                     },
                     doQuerey:function(querey) {
                         
@@ -513,6 +417,10 @@
                                 };
                                 self.autoComplete.element.appendChild(autoCompleteItemElement);
                             }
+                        } else {
+                            if(self.autoComplete.frameDiv.style.display != "none") {
+                                self.autoComplete.frameDiv.style.display = "none";
+                            }
                         }
                     },
                     onSelect:function(idx, text, value) {
@@ -559,7 +467,11 @@
                     //
                     self.bindingEvent();
                 };
-
+                
+                this.setRecipients = function(arr) {
+                    // TODO :
+                };
+                
                 this.getRectByElememt = function (el) {
                     var lsize = {width:el.offsetWidth, height: el.offsetHeight};
                     for (var lx=0, ly=0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
@@ -768,7 +680,7 @@
                     if(!self.autoComplete.isInited) {
                         self.autoComplete.element = document.createElement("UL");
                         self.autoComplete.parent = self.textFieldElement;
-                        self.autoComplete.className = "tag-textfield-autocomplete";
+                        self.autoComplete.className = "um-tag-textfield-autocomplete";
                         self.autoComplete.init();
                     }
                     if(self.inputElement.value.length == 0) {
@@ -806,7 +718,7 @@
 
             function UUMailComposer() {
                 var self = this;
-                this.recipientsTextfield = null;
+                this.toTextfield = null;
                 this.ccTextfield = null;
                 this.bccTextfield = null;
                 this.contentEditor = null;
@@ -814,9 +726,14 @@
                 this.isInFocus = false;
                 this.savedRange = null;
                 this.attachButton = null;
+                this.dataSource = null;
+                
                 this.attachmentsListView = null;
                 this.attachments = [];
-
+                
+                
+                this.contacts = [];
+                
                 this.init = function (editorConfig) {
                     
                     var delegate = {
@@ -899,7 +816,7 @@
                             for(var i=0; i<sender.tags.length; i++) {
                                 var tagObj = sender.tags[i];
                                 if(tagObj.mailbox === e.mailbox) {
-                                    if(sender === self.recipientsTextfield) {
+                                    if(sender === self.toTextfield) {
                                         sender.textFieldElement.style.backgroundColor = "#46c3f1";
                                     } else if(sender === self.ccTextfield) {
                                         sender.textFieldElement.style.backgroundColor = "#3ecb6a";
@@ -922,14 +839,14 @@
                         didAddTag: function(sender) {},
                             // event
                         onfocus : function(sender, e) {
-                            if(sender === self.recipientsTextfield) {
+                            if(sender === self.tosTextfield) {
                                 self.ccTextfield.autoComplete.destory();
                                 self.bccTextfield.autoComplete.destory();
                             } else if(sender === self.ccTextfield) {
-                                self.recipientsTextfield.autoComplete.destory();
+                                self.toTextfield.autoComplete.destory();
                                 self.bccTextfield.autoComplete.destory();
                             } else if(sender === self.bccTextfield) {
-                                self.recipientsTextfield.autoComplete.destory();
+                                self.tosTextfield.autoComplete.destory();
                                 self.ccTextfield.autoComplete.destory();
                             }
                         },
@@ -946,64 +863,71 @@
 
                     var editorWidth = document.body.clientWidth - 4;
                     
-                    self.recipientsTextfield = new UUTagTextField({
-                                                                  width : editorWidth,
-                                                                  minHeight : 32,
-                                                                  tags : [],
-                                                                  title : editorConfig.recipientsTitle,
-                                                                  allowRepeatTag : false,
-                                                                  tagSelectedBackgroundColor : "#46c3f1",
-                                                                  delegate:delegate,
-                                                                  tagStyles : {tagClassName:"recipients-tag-textfield-li", iconClassName:"recipients-tag-textfield-li-icon", titleClassName:"recipients-tag-textfield-li-title", buttonClassName:"recipients-tag-textfield-li-button-container", inputClassName:"recipients-tag-textfield-li-button"},
-                                                                  });
-                    
+                    self.toTextfield = new UUTagTextField({
+                                                          width : editorWidth,
+                                                          minHeight : 32,
+                                                          tags : [],
+                                                          title : editorConfig.toPlaceholder,
+                                                          allowRepeatTag : false,
+                                                          tagSelectedBackgroundColor : "#46c3f1",
+                                                          delegate:delegate,
+                                                          contactsCallback:self.doGetContacts,
+                                                          tagStyles : {tagClassName:"um-tag-textfield-li", iconClassName:"um-to-tag-textfield-li-icon", titleClassName:"um-tag-textfield-li-title", buttonClassName:"um-tag-textfield-li-button-container", inputClassName:"um-tag-textfield-li-button"},
+                                                          });
+                                                          
                     self.ccTextfield = new UUTagTextField({
                                                           width : editorWidth,
                                                           minHeight : 32,
                                                           tags : [],
-                                                          title : editorConfig.ccsTitle,
+                                                          title : editorConfig.ccPlaceholder,
                                                           allowRepeatTag : false,
                                                           tagSelectedBackgroundColor : "#3ecb6a",
                                                           delegate:delegate,
-                                                          tagStyles : {tagClassName:"cc-tag-textfield-li", iconClassName:"cc-tag-textfield-li-icon", titleClassName:"cc-tag-textfield-li-title", buttonClassName:"cc-tag-textfield-li-button-container", inputClassName:"cc-tag-textfield-li-button"},
+                                                          contactsCallback:self.doGetContacts,
+                                                          tagStyles : {tagClassName:"um-tag-textfield-li", iconClassName:"um-cc-tag-textfield-li-icon", titleClassName:"um-tag-textfield-li-title", buttonClassName:"um-tag-textfield-li-button-container", inputClassName:"um-tag-textfield-li-button"},
                                                           });
 
                     self.bccTextfield = new UUTagTextField({
                                                            width : editorWidth,
                                                            minHeight : 32,
                                                            tags : [],
-                                                           title : editorConfig.bccsTitle,
+                                                           title : editorConfig.bccPlaceholder,
                                                            allowRepeatTag : false,
                                                            tagSelectedBackgroundColor : "#4fc400",
                                                            delegate:delegate,
-                                                           tagStyles : {tagClassName:"bcc-tag-textfield-li", iconClassName:"bcc-tag-textfield-li-icon", titleClassName:"bcc-tag-textfield-li-title", buttonClassName:"bcc-tag-textfield-li-button-container", inputClassName:"bcc-tag-textfield-li-button"},
+                                                           contactsCallback:self.doGetContacts,
+                                                           tagStyles : {tagClassName:"um-tag-textfield-li", iconClassName:"um-bcc-tag-textfield-li-icon", titleClassName:"um-tag-textfield-li-title", buttonClassName:"um-tag-textfield-li-button-container", inputClassName:"um-tag-textfield-li-button"},
                                                            });
 
-                    self.subjectTextfiled = document.getElementById("subject-input");
-                    self.subjectTextfiled.placeholder = editorConfig.subjectTitle;
-                    self.attachButton = document.getElementById("uu-attachment-add-button");
-                    self.attachmentsListView = document.getElementById("attachments-list-view");
+                    self.subjectTextfiled = document.getElementById("um-subject-input");
+                    self.subjectTextfiled.placeholder = editorConfig.subjectPlaceholder;
+                    self.attachButton = document.getElementById("um-attachment-add-button");
+                    self.attachmentsListView = document.getElementById("um-attachments-list-view");
                     
-                    var stf = document.getElementById("subject-textfield");
+                    var stf = document.getElementById("um-subject-textfield");
                     stf.style.width = editorWidth + "px";
 
-                    self.contentEditor = document.getElementById("content-editor");
-                    self.contentEditor.setAttribute('placeholder', editorConfig.contentTitle);
+                    self.contentEditor = document.getElementById("um-content-editor");
+                    self.contentEditor.setAttribute('placeholder', editorConfig.contentPlaceholder);
                     self.contentEditor.style.width = editorWidth + "px";
                 };
 
                 this.launch = function () {
-                    self.recipientsTextfield.applyTo("recipients-tag-textfield", "recipients-input");
-                    self.ccTextfield.applyTo("cc-tag-textfield", "cc-input");
-                    self.bccTextfield.applyTo("bcc-tag-textfield", "bcc-input");
+                    
+                    self.toTextfield.applyTo("um-to-tag-textfield", "um-to-input");
+                    self.ccTextfield.applyTo("um-cc-tag-textfield", "um-cc-input");
+                    self.bccTextfield.applyTo("um-bcc-tag-textfield", "um-bcc-input");
                     //
                     self.contentEditor.onmouseup = self.contentEditorOnMouseUp;
                     self.contentEditor.onkeyup = self.contentEditorOnKeyUp;
                     self.contentEditor.onfocus = self.contentEditorOnFocus;
                     //
                     self.attachButton.onclick = self.addAttachmentAction;
+                    
+                    self.getContacts();
+                    self.getMail();
                 };
-
+                
                 this.saveSelection = function() {
                     if(window.getSelection)//non IE Browsers
                     {
@@ -1014,6 +938,7 @@
                         self.savedRange = document.selection.createRange();
                     }
                 };
+                
                 this.restoreSelection = function() {
                     self.isInFocus = true;
                     self.contentEditor.focus();
@@ -1047,16 +972,37 @@
                 };
                 
                 this.bridgeToWebview = function(ev) {
-                    if(ev.name == "add-attachment") {
-                        window.open("umcomposer://add-attachment");
-                    } else if(ev.name == "remove-attachment") {
-                        window.open("umcomposer://remove-attachment");
-                    }
+                    window.location.href=("umcomposer://" + ev.name);
+//                    if(ev.name == "add-attachment") {
+//                        window.open("umcomposer://add-attachment");
+//                    } else if(ev.name == "remove-attachment") {
+//                        window.open("umcomposer://remove-attachment");
+//                    } else if(ev.name == "get-contacts") {
+//                        window.open("umcomposer://get-contacts");
+//                    } else if(ev.name == "get-mail") {
+//                        window.open("umcomposer://get-mail");
+//                    }
+                };
+                this.doGetContacts = function(){
+                    return self.contacts;
+                };
+                this.getMail = function() {
+                    self.bridgeToWebview({name:"get-mail", info:null});
+                };
+                this.didGetMail = function(mail) {
+                    
+                };
+                this.getContacts = function() {
+                    self.bridgeToWebview({name:"get-contacts", info:null});
+                    
+                };
+                this.didGetContacts = function(contacts) {
+                    self.contacts = contacts;
+                    
                 };
                 
                 this.addAttachmentAction = function(e) {
-                    var ev = {name:"add-attachment", info:null};
-                    self.bridgeToWebview(ev);
+                    self.bridgeToWebview({name:"add-attachment", info:null});
                 };
                 
                 this.removeAttachmentAction = function(e) {
@@ -1066,13 +1012,13 @@
                 this.didAddAttachment = function(att){
                     
                     var liElt = document.createElement("LI");
-                    liElt.className = "attachments-list-item";
+                    liElt.className = "um-attachments-list-item";
                     
                     var containerFrameDiv = document.createElement("DIV");
-                    containerFrameDiv.className = "attachments-list-item-content-container";
+                    containerFrameDiv.className = "um-attachments-list-item-content-container";
                     
                     var iconFrameDiv = document.createElement("DIV");
-                    iconFrameDiv.className = "attachments-list-item-icon";
+                    iconFrameDiv.className = "um-attachments-list-item-icon";
                     
                     var iconElt = document.createElement("IMG");
                     iconElt.style.float = "left";
@@ -1083,7 +1029,7 @@
                     
                     
                     var titleFrameDiv = document.createElement("DIV");
-                    titleFrameDiv.className = "attachments-list-item-title";
+                    titleFrameDiv.className = "um-attachments-list-item-title";
                     
                     var titleDiv = document.createElement("DIV");
                     titleDiv.style.float = "left";
@@ -1121,11 +1067,11 @@
                     
                     
                     var buttonContainerDiv = document.createElement("DIV");
-                    buttonContainerDiv.className = "attachments-list-item-button-container";
+                    buttonContainerDiv.className = "um-attachments-list-item-button-container";
                     
                     var buttonInput = document.createElement("INPUT");
                     buttonInput.type = "button";
-                    buttonInput.className = "attachments-list-item-button";
+                    buttonInput.className = "um-attachments-list-item-button";
                     buttonInput.onclick = self.removeAttachmentAction;
                     
                     iconFrameDiv.appendChild(iconElt);
@@ -1144,7 +1090,6 @@
                     
                     self.attachmentsListView.appendChild(liElt);
                     
-                    //att = {icon:"file:////.....png", title:"XXXX.png", src:"file:///....png", type:"类型:PNG", size:"大小:2.1M", error:null}
                     iconElt.src = att.icon;
                     titleDiv.innerHTML = att.title;
                     typeDiv.innerHTML = att.type;
@@ -1181,13 +1126,13 @@
                 this.getMailContent = function() {
                     return self.contentEditor.innerHTML;
                 };
-                this.getMailRecipients = function() {
-                    return self.recipientsTextfield.tags;
+                this.getMailToRecipients = function() {
+                    return self.toTextfield.tags;
                 };
-                this.getMailCcs = function() {
+                this.getMailCcRecipients = function() {
                     return self.ccTextfield.tags;
                 };
-                this.getMailBccs = function() {
+                this.getMailBccRecipients = function() {
                     return self.bccTextfield.tags;
                 };
                 this.getMailSubject = function() {
@@ -1198,37 +1143,44 @@
                 };
                 this.getMail = function(){
                     var mail = {
-                        recipients : self.getMailRecipients(),
-                        ccs : self.getMailCcs(),
-                        bccs : self.getMailBccs(),
+                        to : self.getMailToRecipients(),
+                        cc : self.getMailCcRecipients(),
+                        bcc : self.getMailBccRecipients(),
                         subject : self.getMailSubject(),
                         content : self.getMailContent(),
-                        attachments : self.attachments
+                        attachments : self.getMailAttachments()
                     };
-                    return mail;
+                    var mailJSONString = JSON.stringify(mail);
+                    return mailJSONString;
                 }
             }
         
             var mailComposer = new UUMailComposer();
             window.onload = function () {
-                mailComposer.init({recipientsTitle : "To : ", ccsTitle : "Cc : ", bccsTitle : "Bcc : ", subjectTitle : "Subject : ", contentTitle : "Please enter content here..."});
+                
+                mailComposer.init({
+                                  toPlaceholder : "To : ",
+                                  ccPlaceholder : "Cc : ",
+                                  bccPlaceholder : "Bcc : ",
+                                  subjectPlaceholder : "Subject : ",
+                                  contentPlaceholder : "Please enter content here..."});
                 mailComposer.launch();
             }
         </script>
     </head>
     <body>
-        <ul id="recipients-tag-textfield" class="tag-textfield"><li><input id="recipients-input" type="text" autocorrect="off" autocapitalize="off" autofocus="true" /></li></ul>
-        <ul id="cc-tag-textfield" class="tag-textfield"><li><input id="cc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
-        <ul id="bcc-tag-textfield" class="tag-textfield"><li><input id="bcc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
-        <div id="subject-textfield" class="subject-textfield">
-            <input id="subject-input" class="subject-input" type="text" />
-            <div id="uu-attachment-add-button" class="attachment-add-button"></div>
+        <ul id="um-to-tag-textfield" class="um-tag-textfield"><li><input id="um-to-input" type="text" autocorrect="off" autocapitalize="off" autofocus="true" /></li></ul>
+        <ul id="um-cc-tag-textfield" class="um-tag-textfield"><li><input id="um-cc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
+        <ul id="um-bcc-tag-textfield" class="um-tag-textfield"><li><input id="um-bcc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
+        <div id="um-subject-textfield" class="um-subject-textfield">
+            <input id="um-subject-input" class="um-subject-input" type="text" />
+            <div id="um-attachment-add-button" class="um-attachment-add-button"></div>
         </div>
 
-        <div id="content-editor" class="content-editor" contenteditable="true"></div>
+        <div id="um-content-editor" class="um-content-editor" contenteditable="true"></div>
         <div>
             <h5>Attachments</h5>
-            <ul class="attachments-list" id="attachments-list-view">
+            <ul id="um-attachments-list-view" class="um-attachments-list">
             </ul>
         </div>
     </body>

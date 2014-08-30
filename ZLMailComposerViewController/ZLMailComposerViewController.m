@@ -10,6 +10,13 @@
 
 @interface ZLMailComposerViewController ()
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic, strong) NSMutableArray *toRecipients;
+@property (nonatomic, strong) NSMutableArray *ccRecipients;
+@property (nonatomic, strong) NSMutableArray *bccRecipients;
+@property (nonatomic, strong) NSMutableString *content;
+@property (nonatomic, strong) NSMutableArray *attachments;
+
+
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender;
 - (IBAction)printHTML:(UIBarButtonItem *)sender;
@@ -98,7 +105,13 @@
 }
 
 - (void) processComposerEvent:(NSURL *) url {
-    if([url.host isEqualToString:@"add-attachment"]) {
+    if([url.host isEqualToString:@"get-contacts"]) {
+        
+        NSString *contacts = @"[{displayName : \"朱茵\", mailbox : \"zhu.yin@163.com\"}, {displayName : \"张学友\", mailbox : \"jack.chang@163.com\"}, {displayName : \"刘德华\", mailbox : \"andy.liu@163.com\"}, {displayName : \"吴宗宪\", mailbox : \"zongxian.wu@163.com\"}, {displayName : \"James\", mailbox : \"james@163.com\"}, {displayName : \"郭富城\", mailbox : \"fucheng.guo@163.com\"}, {displayName : \"黎明\", mailbox : \"ming.li@163.com\"}, {displayName : \"去哪儿\",mailbox : \"qunaer@163.com\"}]";
+        NSString *javascript = [NSString stringWithFormat:@"mailComposer.didGetContacts(%@)", contacts];
+        [self.webView stringByEvaluatingJavaScriptFromString:javascript];
+    } else if([url.host isEqualToString:@"get-mail"]) {
+    } else if([url.host isEqualToString:@"add-attachment"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         imagePickerController.delegate = self;
@@ -137,9 +150,9 @@
     //    NSString *html = [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('content').innerHTML"];
     //    NSString *script = [self.webView stringByEvaluatingJavaScriptFromString:@"window.alertHtml()"];
     //    [self.webView stringByEvaluatingJavaScriptFromString:script];
-    NSString *mailRecipients = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailRecipients()"];
-    NSString *mailCcs = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailCcs()"];
-    NSString *mailBccs = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailBccs()"];
+    NSString *mailRecipients = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailToRecipients()"];
+    NSString *mailCcs = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailCcRecipients()"];
+    NSString *mailBccs = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailBccRecipients()"];
     NSString *mailSubject = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailSubject()"];
     NSString *mailContent = [self.webView stringByEvaluatingJavaScriptFromString:@"mailComposer.getMailContent()"];
     

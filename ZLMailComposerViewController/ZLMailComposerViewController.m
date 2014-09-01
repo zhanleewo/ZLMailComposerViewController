@@ -28,6 +28,7 @@ typedef enum ZLEditMode_ {
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSMutableArray *attachments;
 @property (nonatomic, assign) ZLEditMode editMode;
+@property (nonatomic, assign) BOOL shouldEmbededImageToContent;
 
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender;
@@ -228,6 +229,9 @@ typedef enum ZLEditMode_ {
 
 #pragma mark - Helper
 - (void)insertImageAction:(id)sender {
+    
+    self.shouldEmbededImageToContent = YES;
+    
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePickerController.delegate = self;
@@ -550,6 +554,9 @@ typedef enum ZLEditMode_ {
 }
 
 #pragma mark - ImagePickerController Delegate
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    self.shouldEmbededImageToContent = NO;
+}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     // Obtain the path to save to
@@ -577,9 +584,14 @@ typedef enum ZLEditMode_ {
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    //NSString *script = [NSString stringWithFormat:@"mailComposer.insertImage('%@', '%@')", imageName, imagePath];
-    NSString *script = [NSString stringWithFormat:@"mailComposer.didAddAttachment({icon:\"%@\", title:\"%@\", src:\"%@\", type:\"类型:JPEG\", size:\"大小:%@\", error:null})", iconPath, imageName, imagePath, [self sizeToString:size]];
-    //;
+    
+    NSString *script = nil;
+    if(self.shouldEmbededImageToContent) {
+        self.shouldEmbededImageToContent = NO;
+        script = [NSString stringWithFormat:@"mailComposer.insertImage('%@', '%@')", imageName, imagePath];
+    } else {
+        script = [NSString stringWithFormat:@"mailComposer.didAddAttachment({icon:\"%@\", title:\"%@\", src:\"%@\", type:\"类型:JPEG\", size:\"大小:%@\", error:null})", iconPath, imageName, imagePath, [self sizeToString:size]];
+    }
     [self.webView stringByEvaluatingJavaScriptFromString:script];
 }
 @end

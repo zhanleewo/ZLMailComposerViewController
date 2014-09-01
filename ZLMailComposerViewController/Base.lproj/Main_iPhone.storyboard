@@ -52,7 +52,7 @@
             </objects>
             <point key="canvasLocation" x="1518" y="110"/>
         </scene>
-        <!--Mail Composer View Controller - Composer-->
+        <!--Mail Composer View Controller - Mail Composer-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ZLMailComposerViewController" sceneMemberID="viewController">
@@ -77,7 +77,7 @@
                             <constraint firstAttribute="centerX" secondItem="BSf-jN-SNa" secondAttribute="centerX" id="tcZ-a3-SFf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Composer" id="O7T-Fh-Ju2">
+                    <navigationItem key="navigationItem" title="Mail Composer" id="O7T-Fh-Ju2">
                         <barButtonItem key="leftBarButtonItem" image="nav-item-back" id="KI5-tF-a6c">
                             <connections>
                                 <action selector="backAction:" destination="vXZ-lx-hvc" id="aqh-AL-B8q"/>

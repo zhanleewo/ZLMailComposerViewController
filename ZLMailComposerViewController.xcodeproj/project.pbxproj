@@ -31,6 +31,7 @@
 		7465E00F19B05778009918EF /* avi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7465E00D19B05778009918EF /* avi@2x.png */; };
 		7465E01319B06E26009918EF /* DemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7465E01219B06E25009918EF /* DemoTableViewController.m */; };
 		7465E01619B07E9C009918EF /* ZLMailComposerNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7465E01519B07E9C009918EF /* ZLMailComposerNavigationController.m */; };
+		74C42A7E19B413FC003ABC60 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74C42A7B19B413FC003ABC60 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,8 @@
 		7465E01219B06E25009918EF /* DemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTableViewController.m; sourceTree = "<group>"; };
 		7465E01419B07E9C009918EF /* ZLMailComposerNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLMailComposerNavigationController.h; sourceTree = "<group>"; };
 		7465E01519B07E9C009918EF /* ZLMailComposerNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLMailComposerNavigationController.m; sourceTree = "<group>"; };
+		74C42A7A19B413FC003ABC60 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		74C42A7B19B413FC003ABC60 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,7 @@
 		7452E34419AF338A00D5A17D /* ZLMailComposerViewController */ = {
 			isa = PBXGroup;
 			children = (
+				74C42A7819B413FC003ABC60 /* JSONKit */,
 				7465E01019B06DDF009918EF /* ZLMailComposerViewController */,
 				7452E34D19AF338A00D5A17D /* ZLAppDelegate.h */,
 				7452E34E19AF338A00D5A17D /* ZLAppDelegate.m */,
@@ -200,6 +204,15 @@
 				7465E01519B07E9C009918EF /* ZLMailComposerNavigationController.m */,
 			);
 			name = ZLMailComposerViewController;
+			sourceTree = "<group>";
+		};
+		74C42A7819B413FC003ABC60 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				74C42A7A19B413FC003ABC60 /* JSONKit.h */,
+				74C42A7B19B413FC003ABC60 /* JSONKit.m */,
+			);
+			path = JSONKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +326,7 @@
 			files = (
 				7465E01619B07E9C009918EF /* ZLMailComposerNavigationController.m in Sources */,
 				7465E01319B06E26009918EF /* DemoTableViewController.m in Sources */,
+				74C42A7E19B413FC003ABC60 /* JSONKit.m in Sources */,
 				7452E34F19AF338A00D5A17D /* ZLAppDelegate.m in Sources */,
 				7452E34B19AF338A00D5A17D /* main.m in Sources */,
 				7452E35819AF338A00D5A17D /* ZLMailComposerViewController.m in Sources */,

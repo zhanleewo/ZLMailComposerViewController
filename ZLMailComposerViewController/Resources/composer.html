@@ -14,6 +14,10 @@
                 -webkit-tap-highlight-color: rgba(0,0,0,0);
                 -webkit-border-radius:0;
             }
+            blockquote {background:#f9f9f9; border-left:2px solid #0066ff;margin:0px 0px;padding:0px 0px 0px 10px;quotes:none;}
+            blockquote p {
+                display:inline;
+            }
             /* placeholder for contenteditable dom */
             [contenteditable=true]:empty:before{
                 content: attr(placeholder);
@@ -460,7 +464,14 @@
                 };
                 
                 this.setRecipients = function(arr) {
-                    // TODO :
+
+                    if(arr == null || arr.length == 0) {
+                        return;
+                    }
+                    
+                    for(var i=0; i<arr.length; i++) {
+                        self.addTagWithValue(arr[i]);
+                    }
                 };
                 
                 this.getRectByElememt = function (el) {
@@ -478,7 +489,11 @@
                 };
 
                 this.createTag = function (tagTitle) {
-
+                    
+                    if(tagTitle != null && tagTitle.length > 0) {
+                        tagTitle = tagTitle.trim();
+                    }
+                    
                     var tagDiv = document.createElement("LI");
                     var tagImgDiv = document.createElement("DIV");
                     var tagTitleDiv = document.createElement("DIV");
@@ -707,7 +722,7 @@
                 this.ccTextfield = null;
                 this.bccTextfield = null;
                 this.contentEditor = null;
-                this.subjectTextfiled = null;
+                this.subjectTextfield = null;
                 this.isInFocus = false;
                 this.savedRange = null;
                 this.attachButton = null;
@@ -884,8 +899,8 @@
                                                            tagStyles : {tagClassName:"um-tag-textfield-li", iconClassName:"um-bcc-tag-textfield-li-icon", titleClassName:"um-tag-textfield-li-title", buttonClassName:"um-tag-textfield-li-button-container", inputClassName:"um-tag-textfield-li-button"},
                                                            });
 
-                    self.subjectTextfiled = document.getElementById("um-subject-input");
-                    self.subjectTextfiled.placeholder = editorConfig.subjectPlaceholder;
+                    self.subjectTextfield = document.getElementById("um-subject-input");
+                    self.subjectTextfield.placeholder = editorConfig.subjectPlaceholder;
                     self.attachButton = document.getElementById("um-attachment-add-button");
                     self.attachmentsListView = document.getElementById("um-attachments-list-view");
                     
@@ -975,7 +990,16 @@
                     self.bridgeToWebview({name:"get-mail", info:null});
                 };
                 this.didGetMail = function(mail) {
+                    self.toTextfield.setRecipients(mail.toRecipients);
+                    self.ccTextfield.setRecipients(mail.ccRecipients);
+                    self.bccTextfield.setRecipients(mail.bccRecipients);
+                    self.subjectTextfield.value = mail.subject;
                     
+                    var n = mail.attachments.length;
+                    for(var i=0; i<n; i++) {
+                        self.didAddAttachment(mail.attachments[i]);
+                    }
+                    self.attachments = mail.attachments;
                 };
                 this.getContacts = function() {
                     self.bridgeToWebview({name:"get-contacts", info:null});
@@ -983,7 +1007,6 @@
                 };
                 this.didGetContacts = function(contacts) {
                     self.contacts = contacts;
-                    
                 };
                 
                 this.addAttachmentAction = function(e) {
@@ -1121,12 +1144,12 @@
                     return self.bccTextfield.tags;
                 };
                 this.getMailSubject = function() {
-                    return self.subjectTextfiled.value;
+                    return self.subjectTextfield.value;
                 };
                 this.getMailAttachments = function() {
                     return self.attachments;
                 };
-                this.getMail = function(){
+                this.getMailInfo = function(){
                     var mail = {
                         to : self.getMailToRecipients(),
                         cc : self.getMailCcRecipients(),

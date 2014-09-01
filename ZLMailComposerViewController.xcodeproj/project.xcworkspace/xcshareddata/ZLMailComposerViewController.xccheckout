@@ -5,11 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>8E988514-CD81-40BC-A79A-4134F80B58C4</string>
+	<string>BB2F139F-347E-485A-A4D9-32425C24B802</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ZLMailComposerViewController</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>008B0A6D-1887-4851-8480-CD55FF3FE7E1</key>
+		<string>https://github.com/johnezang/JSONKit.git</string>
 		<key>67C69BD9-2DD4-4538-B8DE-36BF71B651FC</key>
 		<string>https://github.com/zhanleewo/ZLMailComposerViewController</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>ZLMailComposerViewController.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>008B0A6D-1887-4851-8480-CD55FF3FE7E1</key>
+		<string>../../ZLMailComposerViewController/JSONKit</string>
 		<key>67C69BD9-2DD4-4538-B8DE-36BF71B651FC</key>
 		<string>../..</string>
 	</dict>
@@ -28,6 +32,14 @@
 	<string>67C69BD9-2DD4-4538-B8DE-36BF71B651FC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>008B0A6D-1887-4851-8480-CD55FF3FE7E1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JSONKit</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

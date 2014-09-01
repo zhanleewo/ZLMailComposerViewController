@@ -8,14 +8,26 @@
 
 #import "ZLMailComposerViewController.h"
 
+#import <AddressBook/AddressBook.h>
+#import "JSONKit.h"
+typedef enum ZLEditMode_ {
+    ZLEditModeNew = 1,
+    ZLEditModeReply = 2,
+    ZLEditModeReplyAll = 3,
+    ZLEditModeForward = 4,
+    ZLEditModeRedirect = 5,
+    ZLEditModeDraft = 6,
+} ZLEditMode;
+
 @interface ZLMailComposerViewController ()
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSMutableArray *toRecipients;
 @property (nonatomic, strong) NSMutableArray *ccRecipients;
 @property (nonatomic, strong) NSMutableArray *bccRecipients;
-@property (nonatomic, strong) NSMutableString *content;
+@property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSMutableArray *attachments;
-
+@property (nonatomic, assign) ZLEditMode editMode;
 
 
 - (IBAction)selectPhoto:(UIBarButtonItem *)sender;
@@ -24,45 +36,177 @@
 
 @implementation ZLMailComposerViewController
 
-- (void) setupComposer {
+- (void) setupNewComposer {
     
+    self.title = @"Mail Composer";
+    
+    [self setupComposerWithToRecipients:@[]
+                        andCcRecipients:@[]
+                       andBccRecipients:@[]
+                             andSubject:@""
+                             andContent:@"<br /><br />来自于UUMail<br />"
+                         andAttachments:@[]
+                            andEditMode:ZLEditModeNew];
 }
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content {
-
+- (void) setupReplyComposerWithToRecipients:(NSArray *) toRecipients
+                            andSubject:(NSString *) subject
+                            andContent:(NSString *) content {
+    if(subject.length > 0) {
+        self.title = subject;
+    } else {
+        self.title = @"Mail Composer";
+    }
+    [self setupComposerWithToRecipients:toRecipients
+                        andCcRecipients:@[]
+                       andBccRecipients:@[]
+                             andSubject:subject
+                             andContent:[self insertExtendInfoToContentHead:content]
+                         andAttachments:@[]
+                            andEditMode:ZLEditModeReply];
 }
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                              andCCs:(NSArray *) ccs
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content {
-
+- (void) setupReplyAllComposerWithToRecipients:(NSArray *) toRecipients
+                       andCcRecipients:(NSArray *) ccRecipients
+                            andSubject:(NSString *) subject
+                            andContent:(NSString *) content {
+    if(subject.length > 0) {
+        self.title = subject;
+    } else {
+        self.title = @"Mail Composer";
+    }
+    [self setupComposerWithToRecipients:toRecipients
+                        andCcRecipients:ccRecipients
+                       andBccRecipients:@[]
+                             andSubject:subject
+                             andContent:[self insertExtendInfoToContentHead:content]
+                         andAttachments:@[]
+                            andEditMode:ZLEditModeReplyAll];
 }
 
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                              andCCs:(NSArray *) ccs
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content
-                      andAttachments:(NSArray *)attachments {
-
+- (void) setupForwardComposerWithSubject:(NSString *) subject
+                            andContent:(NSString *) content
+                        andAttachments:(NSArray *) attachments {
+    if(subject.length > 0) {
+        self.title = subject;
+    } else {
+        self.title = @"Mail Composer";
+    }
+    [self setupComposerWithToRecipients:@[]
+                        andCcRecipients:@[]
+                       andBccRecipients:@[]
+                             andSubject:subject
+                             andContent:[self insertExtendInfoToContentHead:content]
+                         andAttachments:attachments
+                            andEditMode:ZLEditModeForward];
 }
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                              andCCs:(NSArray *) ccs
-                             andBCCs:(NSArray *) bccs
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content
-                      andAttachments:(NSArray *)attachments {
-
+- (void) setupDraftComposerWithToRecipients:(NSArray *) toRecipients
+                       andCcRecipients:(NSArray *) ccRecipients
+                      andBccRecipients:(NSArray *) bccRecipients
+                            andSubject:(NSString *) subject
+                            andContent:(NSString *) content
+                        andAttachments:(NSArray *) attachments {
+    if(subject.length > 0) {
+        self.title = subject;
+    } else {
+        self.title = @"Mail Composer";
+    }
+    [self setupComposerWithToRecipients:toRecipients
+                        andCcRecipients:ccRecipients
+                       andBccRecipients:bccRecipients
+                             andSubject:subject
+                             andContent:content
+                         andAttachments:attachments
+                            andEditMode:ZLEditModeDraft];
 }
 
-- (void) setupComposerWithContent:(NSString *) content
+- (void) setupRedirectComposerWithSubject:(NSString *) subject
+                       andContent:(NSString *) content
                    andAttachments:(NSArray *) attachments {
-
+    if(subject.length > 0) {
+        self.title = subject;
+    } else {
+        self.title = @"Mail Composer";
+    }
+    [self setupComposerWithToRecipients:@[]
+                        andCcRecipients:@[]
+                       andBccRecipients:@[]
+                             andSubject:subject
+                             andContent:content
+                         andAttachments:attachments
+                            andEditMode:ZLEditModeRedirect];
 }
+
+- (void) setupComposerWithToRecipients:(NSArray *) toRecipients
+                       andCcRecipients:(NSArray *) ccRecipients
+                      andBccRecipients:(NSArray *) bccRecipients
+                            andSubject:(NSString *) subject
+                            andContent:(NSString *) content
+                        andAttachments:(NSArray *) attachments
+                           andEditMode:(ZLEditMode) mode {
+    self.toRecipients = [NSMutableArray arrayWithArray:toRecipients];
+    self.ccRecipients = [NSMutableArray arrayWithArray:ccRecipients];
+    self.bccRecipients = [NSMutableArray arrayWithArray:bccRecipients];
+    self.subject = subject;
+    self.content = content;
+    self.attachments = [NSMutableArray arrayWithArray:attachments];
+    self.editMode = mode;
+}
+
+- (NSString *) quoteMessage:(NSString *) message withHeader:(NSString *) header {
+    if(message == nil) {
+        return @"";
+    }
+    
+    NSString *content = [NSString stringWithString:message];
+    if(content != nil && ![content isEqualToString:@""]) {
+        NSRange range = [content rangeOfString:@"<body"];
+        if(range.location != NSNotFound) {
+            NSRange leftRange = {.location = range.location + 1, .length = content.length - range.location - 1};
+            NSRange contentStartRange = [content rangeOfString:@">" options:NSLiteralSearch range:leftRange];
+            if(contentStartRange.location != NSNotFound) {
+                content = [content substringFromIndex:contentStartRange.location + 1];
+                if(content != nil && ![content isEqualToString:@""]) {
+                    leftRange.location = 0;
+                    leftRange.length = content.length;
+                    NSRange contentEndRange = [content rangeOfString:@"</body>" options:NSBackwardsSearch range:leftRange];
+                    
+                    content = [content substringToIndex:contentEndRange.location];
+                    if(contentEndRange.location != NSNotFound) {
+                        content = [NSString stringWithFormat:@"<blockquote type=\"cite\">%@%@</blockquote>", header, content];
+                    }
+                }
+            }
+        } else {
+            content = [NSString stringWithFormat:@"<blockquote type=\"cite\">%@%@</blockquote>", header, content];
+        }
+    }
+    return content;
+}
+
+- (NSString *)insertExtendInfoToContentHead:(NSString *) content {
+    NSString *newContent = nil;
+    NSString *quote = nil;
+    NSString *signLine = [NSString stringWithFormat:@"%@", @"<br /><br />来自于UUMail<br /><br />"];
+    if (content){
+        //NSString *dateFormatString = NSLocalizedString(@"yyyy年MM月dd日, ah:mm", @"");
+        NSString *dateString = @"2014年10月8日, 上午8:30分";
+        NSString *displayName = @"吴孟达";
+        NSString *mailBox = @"mengdawu@gmail.com";
+        NSString *fromString = [NSString stringWithFormat:@"%@ &lt;<a href=\"mailto:%@\">%@</a>&gt;", displayName, mailBox, mailBox];
+        NSString *qouteFormatString = NSLocalizedString(@"在%@, %@ 写道:<br /><br />", @"");
+        NSString *qouteLine = [NSString stringWithFormat:qouteFormatString, dateString, fromString];
+        
+        quote = [self quoteMessage:content withHeader:qouteLine];
+    } else {
+        quote = @"";
+    }
+    newContent = [NSString stringWithFormat:@"%@%@", signLine, quote];
+    return newContent;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadWebView];
@@ -89,16 +233,85 @@
     imagePickerController.delegate = self;
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
+
+
+- (NSString *)getLocalContacts{
+    NSMutableArray *contacts = [[NSMutableArray alloc] initWithCapacity:30];
+    ABAddressBookRef addressBook = nil;
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 6.0)
+    {
+        addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error)
+                                                 {
+                                                     dispatch_semaphore_signal(sema);
+                                                 });
+        
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    }
+    //    else
+    //    {
+    //        addressBook = ABAddressBookCreate();
+    //    }
+    if(!addressBook) {
+        return @"";
+    }
+    CFArrayRef results = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    if(!results) {
+        return @"";
+    }
+    for(int i = 0; i < CFArrayGetCount(results); i++)
+    {
+        ABRecordRef person = CFArrayGetValueAtIndex(results, i);
+        //读取firstname
+        NSString *personName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+        
+        //读取middlename
+        NSString *lastname = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+        
+        
+        //读取middlename
+        NSString *middlename = (__bridge NSString*)ABRecordCopyValue(person, kABPersonMiddleNameProperty);
+        
+        ABMultiValueRef email = ABRecordCopyValue(person, kABPersonEmailProperty);
+        unsigned long emailcount = ABMultiValueGetCount(email);
+        for (int x = 0; x < emailcount; x++) {
+            NSString* mailbox = (__bridge NSString*)ABMultiValueCopyValueAtIndex(email, x);
+            if(mailbox == nil || [mailbox isEqualToString:@""]) {
+                continue;
+            }
+            NSString *displayName = @"";
+            if(personName != nil && ![personName isEqualToString:@""]) {
+                displayName = [displayName stringByAppendingString:personName];
+            }
+            if(middlename != nil && ![middlename isEqualToString:@""]) {
+                displayName = [displayName stringByAppendingFormat:@" %@", middlename];
+            }
+            if(lastname != nil && ![lastname isEqualToString:@""]) {
+                displayName = [displayName stringByAppendingFormat:@" %@", lastname];
+            }
+            if(displayName.length > 0) {
+                displayName = [displayName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            }
+            [contacts addObject:@{@"displayName" : displayName, @"mailbox" : mailbox}];
+        }
+    }
+    
+    CFRelease(results);
+    CFRelease(addressBook);
+    
+    return [contacts JSONString];
+}
+
 - (void)loadWebView {
     [self.webView setDelegate:self];
     NSBundle *bundle = [NSBundle mainBundle];
     NSURL *indexFileURL = [bundle URLForResource:@"composer" withExtension:@"html"];
     
-    
     NSURL *baseURL = [bundle bundleURL];
     NSData *data = [NSData dataWithContentsOfURL:indexFileURL];
     NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    string = [string stringByReplacingOccurrencesOfString:@"<!-${um-editor-content-placeholder}->" withString:@"<br />来自iPhone客户端"];
+    string = [string stringByReplacingOccurrencesOfString:@"<!-${um-editor-content-placeholder}->" withString:self.content];
     
     [self.webView setKeyboardDisplayRequiresUserAction:NO];
     [self.webView loadData:[string dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
@@ -115,11 +328,21 @@
 - (void) processComposerEvent:(NSURL *) url {
     if([url.host isEqualToString:@"get-contacts"]) {
         
-        NSString *contacts = @"[{displayName : \"朱茵\", mailbox : \"zhu.yin@163.com\"}, {displayName : \"张学友\", mailbox : \"jack.chang@163.com\"}, {displayName : \"刘德华\", mailbox : \"andy.liu@163.com\"}, {displayName : \"吴宗宪\", mailbox : \"zongxian.wu@163.com\"}, {displayName : \"James\", mailbox : \"james@163.com\"}, {displayName : \"郭富城\", mailbox : \"fucheng.guo@163.com\"}, {displayName : \"黎明\", mailbox : \"ming.li@163.com\"}, {displayName : \"去哪儿\",mailbox : \"qunaer@163.com\"}]";
+        NSString *contacts = [self getLocalContacts];
         NSString *javascript = [NSString stringWithFormat:@"mailComposer.didGetContacts(%@)", contacts];
         [self.webView stringByEvaluatingJavaScriptFromString:javascript];
     } else if([url.host isEqualToString:@"get-mail"]) {
+        NSDictionary *mail = @{
+                               @"toRecipients":self.toRecipients,
+                               @"ccRecipients":self.ccRecipients,
+                               @"bccRecipients":self.bccRecipients,
+                               @"subject":self.subject,
+                               @"content":self.content,
+                               @"attachments":self.attachments,
+                               };
         
+        NSString *javascript = [NSString stringWithFormat:@"mailComposer.didGetMail(%@)", [mail JSONString]];
+        [self.webView stringByEvaluatingJavaScriptFromString:javascript];
     } else if([url.host isEqualToString:@"add-attachment"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;

@@ -110,50 +110,52 @@
     UINavigationController *nav = segue.destinationViewController;
     ZLMailComposerViewController *composerViewController = (ZLMailComposerViewController *)nav.topViewController;
     NSIndexPath *indexPath = sender;
+    NSString *iconPath = [[NSBundle mainBundle] pathForResource:@"avi" ofType:@"png"];
+    NSArray *attachments = @[@{@"icon" : iconPath, @"title":@"驯龙高手-1080p.avi", @"src":iconPath, @"type":@"类型:AVI", @"size":@"大小:10.3G", @"error":@"0"}, @{@"icon" : iconPath, @"title":@"敢死队3-1080p.avi", @"src":iconPath, @"type":@"类型:AVI", @"size":@"大小:10.3G", @"error":@"0"}, @{@"icon" : iconPath, @"title":@"蓝精灵2-1080p.avi", @"src":iconPath, @"type":@"类型:AVI", @"size":@"大小:10.3G", @"error":@"0"}];
+    
     switch (indexPath.row) {
         case 0://new email
         {
-            [composerViewController setupComposer];
+            [composerViewController setupNewComposer];
             break;
         }
         case 1://reply
         {
-            [composerViewController setupComposerWithRecipients:nil
-                                                     andSubject:nil
-                                                     andContent:nil];
+            [composerViewController setupReplyComposerWithToRecipients:@[@{@"displayName":@"Edward Zhan", @"mailbox":@"test@gmail.com"}]
+                                                     andSubject:@"Re:大家早上好"
+                                                     andContent:@"\"大家早上好！我是野原新之助，今年五岁\"."];
             break;
         }
         case 2://reply all
         {
-            [composerViewController setupComposerWithRecipients:nil
-                                                         andCCs:nil
-                                                     andSubject:nil
-                                                     andContent:nil];
+            [composerViewController setupReplyAllComposerWithToRecipients:@[@{@"displayName":@"Edward Zhan", @"mailbox":@"test00@gmail.com"}, @{@"displayName":@"James Wang", @"mailbox":@"test01@gmail.com"}]
+                                                         andCcRecipients:@[@{@"displayName":@"Edward Zhan", @"mailbox":@"test00@gmail.com"}, @{@"displayName":@"James Wang", @"mailbox":@"test01@gmail.com"}]
+                                                     andSubject:@"Re:大家早上好"
+                                                     andContent:@"\"大家早上好！我是野原新之助，今年五岁\"."];
             break;
         }
         case 3://forward
         {
-            [composerViewController setupComposerWithRecipients:nil
-                                                         andCCs:nil
-                                                     andSubject:nil
-                                                     andContent:nil
-                                                 andAttachments:nil];
+            [composerViewController setupForwardComposerWithSubject:@"Fwd:大家早上好"
+                                                     andContent:@"\"大家早上好！我是野原新之助，今年五岁\"."
+                                                 andAttachments:attachments];
             break;
         }
         case 4://redirect
         {
-            [composerViewController setupComposerWithContent:nil
-                                                 andAttachments:nil];
+            [composerViewController setupRedirectComposerWithSubject:@"大家早上好"
+                                                  andContent:@"\"大家早上好！我是野原新之助，今年五岁\"."
+                                                 andAttachments:attachments];
             break;
         }
         case 5://edit draft mail
         {
-            [composerViewController setupComposerWithRecipients:nil
-                                                         andCCs:nil
-                                                        andBCCs:nil
-                                                     andSubject:nil
-                                                     andContent:nil
-                                                 andAttachments:nil];
+            [composerViewController setupDraftComposerWithToRecipients:@[@{@"displayName":@"Edward Zhan", @"mailbox":@"test00@gmail.com"}, @{@"displayName":@"James Wang", @"mailbox":@"test01@gmail.com"}]
+                                                         andCcRecipients:@[@{@"displayName":@"Edward Zhan", @"mailbox":@"test00@gmail.com"}, @{@"displayName":@"James Wang", @"mailbox":@"test01@gmail.com"}]
+                                                        andBccRecipients:@[@{@"displayName":@"Edward Zhan", @"mailbox":@"test00@gmail.com"}, @{@"displayName":@"James Wang", @"mailbox":@"test01@gmail.com"}]
+                                                     andSubject:@"大家早上好"
+                                                     andContent:@"\"大家早上好！我是野原新之助，今年五岁\"."
+                                                 andAttachments:attachments];
             break;
         }
         default:

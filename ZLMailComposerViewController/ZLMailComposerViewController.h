@@ -10,31 +10,29 @@
 
 @interface ZLMailComposerViewController : UIViewController <UIWebViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-- (void) setupComposer;
+- (void) setupNewComposer;
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content;
+- (void) setupReplyComposerWithToRecipients:(NSArray *) toRecipients
+                                 andSubject:(NSString *) subject
+                                 andContent:(NSString *) content;
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                              andCCs:(NSArray *) ccs
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content;
+- (void) setupReplyAllComposerWithToRecipients:(NSArray *) toRecipients
+                               andCcRecipients:(NSArray *) ccRecipients
+                                    andSubject:(NSString *) subject
+                                    andContent:(NSString *) content;
 
+- (void) setupForwardComposerWithSubject:(NSString *) subject
+                              andContent:(NSString *) content
+                          andAttachments:(NSArray *) attachments;
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                              andCCs:(NSArray *) ccs
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content
-                      andAttachments:(NSArray *)attachments;
+- (void) setupDraftComposerWithToRecipients:(NSArray *) toRecipients
+                            andCcRecipients:(NSArray *) ccRecipients
+                           andBccRecipients:(NSArray *) bccRecipients
+                                 andSubject:(NSString *) subject
+                                 andContent:(NSString *) content
+                             andAttachments:(NSArray *) attachments;
 
-- (void) setupComposerWithRecipients:(NSArray *) recipients
-                              andCCs:(NSArray *) ccs
-                             andBCCs:(NSArray *) bccs
-                          andSubject:(NSString *) subject
-                          andContent:(NSString *) content
-                      andAttachments:(NSArray *)attachments;
-
-- (void) setupComposerWithContent:(NSString *) content
-                   andAttachments:(NSArray *) attachments;
+- (void) setupRedirectComposerWithSubject:(NSString *) subject
+                               andContent:(NSString *) content
+                           andAttachments:(NSArray *) attachments;
 @end

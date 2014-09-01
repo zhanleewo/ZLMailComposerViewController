@@ -94,15 +94,23 @@
     NSBundle *bundle = [NSBundle mainBundle];
     NSURL *indexFileURL = [bundle URLForResource:@"composer" withExtension:@"html"];
     
-    /*
+    
     NSURL *baseURL = [bundle bundleURL];
     NSData *data = [NSData dataWithContentsOfURL:indexFileURL];
-    [self.webView setKeyboardDisplayRequiresUserAction:NO];
-    [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
-    */
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    string = [string stringByReplacingOccurrencesOfString:@"<!-${um-editor-content-placeholder}->" withString:@"<br />来自iPhone客户端"];
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];
+    [self.webView setKeyboardDisplayRequiresUserAction:NO];
+    [self.webView loadData:[string dataUsingEncoding:NSUTF8StringEncoding] MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:baseURL];
+    
+    
+    //[self.webView loadRequest:[NSURLRequest requestWithURL:indexFileURL]];
 }
+
+- (void) composerDidRenderer:(NSURL *) url {
+
+}
+
 
 - (void) processComposerEvent:(NSURL *) url {
     if([url.host isEqualToString:@"get-contacts"]) {
@@ -111,6 +119,7 @@
         NSString *javascript = [NSString stringWithFormat:@"mailComposer.didGetContacts(%@)", contacts];
         [self.webView stringByEvaluatingJavaScriptFromString:javascript];
     } else if([url.host isEqualToString:@"get-mail"]) {
+        
     } else if([url.host isEqualToString:@"add-attachment"]) {
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
         imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;

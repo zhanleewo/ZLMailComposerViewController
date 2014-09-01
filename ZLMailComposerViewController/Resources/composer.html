@@ -23,14 +23,23 @@
             .um-tag-textfield {
                 margin:0;
                 padding:0;
-                height:100%;
-                border:1px solid #000000;
+                height:auto;
+                width: calc(100% - 4px);
                 clear:both;
                 content:"";
                 display:table;
                 list-style:none;
+                border:none;
+                border-bottom:1px solid #ddd;
             }
-            
+
+            .um-tag-textfield-input {
+                width:calc(100% - 4px);
+                height:30px;
+                border:none;
+                background:none;
+                font-size:12px;
+            }
             .um-tag-textfield-li {
                 float:left;
                 margin:5px 2px 5px 2px;
@@ -298,7 +307,7 @@
                         titleDiv.style.margin = "0";
                         titleDiv.style.padding = "0";
                         titleDiv.style.clear = "both";
-                        titleDiv.style.width = self.autoComplete.parent.style.width;
+                        titleDiv.style.width = "100%";
                         titleDiv.style.height = "22px";
                         titleDiv.style.lineHight = "22px";
                         titleDiv.style.fontSize = "12px";
@@ -444,26 +453,8 @@
                     self.textFieldElement = document.getElementById(eltId);
                     self.inputElement = document.getElementById(inputId);
                     //
-                    self.className = "";
                     self.textFieldElement.style.width = self.width + "px";
-                    self.textFieldElement.style.height = "auto";
-                    self.textFieldElement.style.minHeight = self.minHeight + "px";
-                    self.textFieldElement.style.clear = "both";
-                    self.textFieldElement.style.marginLeft = self.marginLeft + "px";
-                    self.textFieldElement.style.marginRight = self.marginRight + "px";
-                    self.textFieldElement.style.marginTop = self.marginTop + "px";
-                    self.textFieldElement.style.marginBottom = self.marginBottom + "px";
-                    self.textFieldElement.style.border = "none";
-                    self.textFieldElement.style.borderBottom = "1px solid #ddd";
-                    //
-                    self.inputElement.style.width = self.width + "px";
-                    self.inputElement.style.height = (self.minHeight - 2) + "px";
-                    self.inputElement.style.height = self.height + "px";
-                    self.inputElement.style.border = "none";
-                    self.inputElement.style.background = "none";
                     self.inputElement.placeholder = self.title;
-                    self.inputElement.fontSize = "12px";
-
                     //
                     self.bindingEvent();
                 };
@@ -499,22 +490,16 @@
                     tagDiv.appendChild(tagTitleDiv);
                     tagDiv.appendChild(tagButtonDiv);
                     
-                    //tagStyles.tagClassName;
-                    //tagStyles.iconClassName
-                    //tagStyles.titleClassName
-                    //tagStyles.buttonClassName
-                    //tagStyles.inputClassName
-                    
                     //
-                    tagDiv.className = self.tagStyles.tagClassName; //"tag-textfield-li";
+                    tagDiv.className = self.tagStyles.tagClassName;
                     //
-                    tagImgDiv.className = self.tagStyles.iconClassName;//"tag-textfield-li-icon";
+                    tagImgDiv.className = self.tagStyles.iconClassName;
                     //
-                    tagTitleDiv.className = self.tagStyles.titleClassName;//"tag-textfield-li-title";
+                    tagTitleDiv.className = self.tagStyles.titleClassName;
                     //
-                    tagButtonDiv.className = self.tagStyles.buttonClassName;//"tag-textfield-li-button-container";
+                    tagButtonDiv.className = self.tagStyles.buttonClassName;
                     //
-                    tagButtonInput.className = self.tagStyles.inputClassName;//"tag-textfield-li-button";
+                    tagButtonInput.className = self.tagStyles.inputClassName;
                     tagButtonInput.type = "button";
                     tagButtonInput.onclick = self.removeTagAction;
                     if (window.devicePixelRatio < 2) {
@@ -923,7 +908,7 @@
                     self.contentEditor.onfocus = self.contentEditorOnFocus;
                     //
                     self.attachButton.onclick = self.addAttachmentAction;
-                    
+                
                     self.getContacts();
                     self.getMail();
                 };
@@ -1169,15 +1154,15 @@
         </script>
     </head>
     <body>
-        <ul id="um-to-tag-textfield" class="um-tag-textfield"><li><input id="um-to-input" type="text" autocorrect="off" autocapitalize="off" autofocus="true" /></li></ul>
-        <ul id="um-cc-tag-textfield" class="um-tag-textfield"><li><input id="um-cc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
-        <ul id="um-bcc-tag-textfield" class="um-tag-textfield"><li><input id="um-bcc-input" type="text" autocorrect="off" autocapitalize="off" /></li></ul>
+        <ul id="um-to-tag-textfield" class="um-tag-textfield"><li><input id="um-to-input" type="text" class="um-tag-textfield-input" autocorrect="off" autocapitalize="off" autofocus="true" /></li></ul>
+        <ul id="um-cc-tag-textfield" class="um-tag-textfield"><li><input id="um-cc-input" type="text" class="um-tag-textfield-input" autocorrect="off" autocapitalize="off" /></li></ul>
+        <ul id="um-bcc-tag-textfield" class="um-tag-textfield"><li><input id="um-bcc-input" type="text" class="um-tag-textfield-input" autocorrect="off" autocapitalize="off" /></li></ul>
         <div id="um-subject-textfield" class="um-subject-textfield">
             <input id="um-subject-input" class="um-subject-input" type="text" />
             <div id="um-attachment-add-button" class="um-attachment-add-button"></div>
         </div>
 
-        <div id="um-content-editor" class="um-content-editor" contenteditable="true"></div>
+<div id="um-content-editor" class="um-content-editor" contenteditable="true"><!-${um-editor-content-placeholder}-></div>
         <div>
             <h5>Attachments</h5>
             <ul id="um-attachments-list-view" class="um-attachments-list">
